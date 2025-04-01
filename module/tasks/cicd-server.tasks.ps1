@@ -17,14 +17,3 @@ task DetectCICDServer -If { !$SkipDetectCICDServer } -After InitCore {
         Write-Build White "GitHub Actions detected"
     }
 }
-
-# Synopsis: Inform the DevOps agent of the current version number
-task SetCICDServerBuildNumber -If {$IsRunningOnCICDServer -and !$SkipSetCICDServerBuildNumber} -After Version {
-    if ($IsAzureDevOps) {
-        Write-Host "Setting Azure Pipelines build number: $($GitVersion[$GitVersionComponentForBuildNumber])"
-        Write-Host "##vso[build.updatebuildnumber]$($GitVersion[$GitVersionComponentForBuildNumber])"
-    }
-    elseif ($IsGitHubActions) {
-        Write-Warning "Setting GitHub Actions workflow run number is not supported."
-    }
-}

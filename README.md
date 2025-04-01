@@ -16,4 +16,3 @@ This extension consists of the following feature groups, click the links to see 
 
 - Miscellaneous environment checks
 - CI/CD Server integration
-- Versioning

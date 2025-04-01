@@ -16,3 +16,9 @@ task EnsureGitHubCli -If { !$SkipEnsureGitHubCli } -After InitCore {
         throw "You must be logged-in to GitHub CLI to run this process. Please run 'gh auth login' to login and then re-run the build."
     }
 }
+
+# Synopsis: Installs and imports the specified PowerShell modules. NOTE: PowerShell repositories will be trusted by default.
+task setupModules -If { $null -ne $RequiredPowerShellModules -and $RequiredPowerShellModules -ne @{} } {
+    Install-PSResource -RequiredResource $RequiredPowerShellModules -Scope CurrentUser -TrustRepository | Out-Null
+    $RequiredPowerShellModules.Keys | ForEach-Object { Import-Module $_ }
+}

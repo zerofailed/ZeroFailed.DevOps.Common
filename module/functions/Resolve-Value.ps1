@@ -18,24 +18,24 @@
     The configuration value to be resolved. This can be any object type, including scriptblocks.
 
 .INPUTS
-    You can pipe any object to Resolve-ConfigurationValue.
+    You can pipe any object to Resolve-Value.
 
 .OUTPUTS
     Returns the resolved value. If the input was a scriptblock, returns the result of invoking it;
     otherwise returns the input value unchanged.
 
 .EXAMPLE
-    PS> "StaticValue" | Resolve-ConfigurationValue
+    PS> "StaticValue" | Resolve-Value
     StaticValue
 
 .EXAMPLE
-    PS> { Get-Date -Format "yyyy-MM-dd" } | Resolve-ConfigurationValue
+    PS> { Get-Date -Format "yyyy-MM-dd" } | Resolve-Value
     2023-04-15
 
 .EXAMPLE
     PS> $foo = { $bar }
     PS> $bar = "DeferredValue"
-    PS> Resolve-ConfigurationValue $foo
+    PS> Resolve-Value $foo
     DeferredValue
 #>
 

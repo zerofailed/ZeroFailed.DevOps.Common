@@ -4,14 +4,39 @@
 
 <#
 .SYNOPSIS
-    A helper function that enables lazy evaluation of configuration values when they are specified as a PowerShell script block.
+    Evaluates a provided value which may be static or dynamic.
+
 .DESCRIPTION
-    Given an input value that is a scriptblock, this function will invoke the script block and return the result.  Otherwise, it will return the input value.
+    This cmdlet accepts a value of any type and evaluates it:
+    - If the value is a scriptblock, it invokes the scriptblock and returns its result
+    - If the value is any other type, it returns the value unchanged
+    
+    This allows configuration to be defined either as static values or as scriptblocks that
+    provide dynamic values determined at runtime.
+
 .PARAMETER Value
-    The value to resolve.  If this is a script block, it will be invoked and the result returned, otherwise the value will be returned as-is.
+    The configuration value to be resolved. This can be any object type, including scriptblocks.
+
+.INPUTS
+    You can pipe any object to Resolve-ConfigurationValue.
+
+.OUTPUTS
+    Returns the resolved value. If the input was a scriptblock, returns the result of invoking it;
+    otherwise returns the input value unchanged.
+
 .EXAMPLE
-    PS C:\> $aSetting = { $SomeVariableNotYetDefined }; $SomeVariableNotYetDefined = "foo"; Resolve-Value -Value $aSetting
-    foo
+    PS> "StaticValue" | Resolve-ConfigurationValue
+    StaticValue
+
+.EXAMPLE
+    PS> { Get-Date -Format "yyyy-MM-dd" } | Resolve-ConfigurationValue
+    2023-04-15
+
+.EXAMPLE
+    PS> $foo = { $bar }
+    PS> $bar = "DeferredValue"
+    PS> Resolve-ConfigurationValue $foo
+    DeferredValue
 #>
 
 function Resolve-Value {

@@ -2,9 +2,8 @@
 $zerofailedExtensions = @(
     @{
         Name = "ZeroFailed.Build.PowerShell"
-        Path = "D:\ZF\ZeroFailed.Build.PowerShell\module"
-        # GitRepository = "https://github.com/zerofailed/ZeroFailed.Build.PowerShell.git"
-        # GitRef = "refs/heads/main"
+        GitRepository = "https://github.com/zerofailed/ZeroFailed.Build.PowerShell.git"
+        GitRef = "feature/initial-migration"
     }
 )
 

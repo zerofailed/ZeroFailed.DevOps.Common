@@ -67,11 +67,21 @@ function Get-DotNetTool
     #  - The output is not tab delimited, so convert the whitespace between columns to a comma
     #  - Convert the now CSV-formatted output into an object
     #  - Match the specified tool name
-    $existingInstall = & dotnet tool list @scopeArg |
+    $existingInstall = _runDotNetToolList $scopeArg |
                             Select-Object -Skip 2 |
                             ForEach-Object { $_ -ireplace "\s+","," } |
                             ConvertFrom-Csv -Header name,version,commands |
                             Where-Object { $_.name -eq $Name }
 
     return $existingInstall
+}
+
+# Internal wrapper function to enable mocking in tests
+function _runDotNetToolList {
+    [CmdletBinding()]
+    param (
+        $scopeArg
+    )
+
+    & dotnet tool list @scopeArg
 }

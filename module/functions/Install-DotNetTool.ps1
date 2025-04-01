@@ -64,7 +64,7 @@ function Install-DotNetTool
     # Uninstall an existing version of the tool if it's the wrong version
     if ($alreadyInstalled -and $Version -and $alreadyInstalled.version -ne $Version) {
         Write-Host "Uninstalling existing version: $($alreadyInstalled.version)"
-        & dotnet tool uninstall @scopeArg $Name
+        _runDotNetToolUninstall @scopeArg $Name
         if ($LASTEXITCODE -ne 0) {
             throw "'dotnet tool uninstall' returned a non-zero exit code ($LASTEXITCODE) - check previous output"
         }
@@ -85,7 +85,7 @@ function Install-DotNetTool
         $AdditionalArgs = $AdditionalArgs | Where-Object { $_ -notin @("-g","--global","-l","--local","-t","--tool-path") }
 
         Write-Verbose "cmdline: & dotnet tool install $($scopeArg -join " ") $Name $AdditionalArgs"
-        & dotnet tool install @scopeArg $Name @AdditionalArgs
+        _runDotNetToolInstall @scopeArg $Name @AdditionalArgs
         if ($LASTEXITCODE -ne 0) {
             throw "'dotnet tool install' returned a non-zero exit code ($LASTEXITCODE) - check previous output"
         }
@@ -99,4 +99,24 @@ function Install-DotNetTool
             $env:PATH = "{0}{1}{2}" -f $env:PATH, [IO.Path]::PathSeparator, $toolsPath
         }
     }
+}
+
+# Internal wrapper functions to enable mocking in tests
+function _runDotNetToolInstall {
+    [CmdletBinding()]
+    param (
+        [Parameter(ValueFromRemainingArguments)]
+        $cmdArgs
+    )
+
+    & dotnet tool install @cmdArgs
+}
+function _runDotNetToolUninstall {
+    [CmdletBinding()]
+    param (
+        [Parameter(ValueFromRemainingArguments)]
+        $cmdArgs
+    )
+
+    & dotnet tool uninstall @cmdArgs
 }

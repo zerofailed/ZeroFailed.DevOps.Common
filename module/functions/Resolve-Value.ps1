@@ -17,7 +17,7 @@
 function Resolve-Value {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, ValueFromPipeline)]
         $Value
     )
 

@@ -8,4 +8,4 @@ $IsAzureDevOps = $false
 $IsGitHubActions = $false
 
 # Synopsis: When true, no DevOps agent detection will be attempted. Default is false.
-$SkipDetectCICDServer = property ZF_SKIP_DETECT_CICD_SERVER $false
+$SkipDetectCICDServer = [Convert]::ToBoolean((property ZF_SKIP_DETECT_CICD_SERVER $false))

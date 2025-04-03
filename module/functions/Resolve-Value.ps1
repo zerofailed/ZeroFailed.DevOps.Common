@@ -43,6 +43,8 @@ function Resolve-Value {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory, ValueFromPipeline)]
+        [AllowEmptyString()]
+        [AllowNull()]
         $Value
     )
 

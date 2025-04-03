@@ -3,10 +3,10 @@
 # </copyright>
 
 # Synopsis: When true, ZeroFailed will skip the check for a newer version of the ZeroFailed module. Default is false.
-$SkipZeroFailedModuleVersionCheck = property ZF_SKIP_ZEROFAILED_MODULE_VERSION_CHECK $false
+$SkipZeroFailedModuleVersionCheck = [Convert]::ToBoolean((property ZF_SKIP_ZEROFAILED_MODULE_VERSION_CHECK $false))
 
-# Synopsis: When true, ZeroFailed will skip the check for whether the GitHub CLI is installed. Default is false.
-$SkipEnsureGitHubCli = property ZF_SKIP_ENSURE_GITHUB_CLI $false
+# Synopsis: When true, ZeroFailed will skip the check for whether the GitHub CLI is installed. Default is true.
+$SkipEnsureGitHubCli = [Convert]::ToBoolean((property ZF_SKIP_ENSURE_GITHUB_CLI $true))
 
 # Synopsis: A hashtable of PowerShell modules to install and import. The keys are the module names and the values are hashtables with the following properties: version, repository.
 $RequiredPowerShellModules = property ZF_REQUIRED_PS_MODULES @{}

@@ -90,7 +90,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @("ZeroFailed")
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/zerofailed/ZeroFailed.DevOps.Common/blob/main/LICENSE'
@@ -114,6 +114,11 @@ PrivateData = @{
         ExternalModuleDependencies = @()
 
     } # End of PSData hashtable
+
+    # ZeroFailed metadata
+    ZeroFailed = @{
+        ExtensionDependencies = @()
+    }
 
 } # End of PrivateData hashtable
 

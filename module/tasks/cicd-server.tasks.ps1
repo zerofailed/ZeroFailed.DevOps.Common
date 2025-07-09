@@ -11,6 +11,12 @@ task DetectCICDServer -If { !$SkipDetectCICDServer } -After InitCore {
         $script:IsAzureDevOps = $true
         Write-Build White "Azure Pipelines detected"
     }
+    elseif ($env:RELEASE_RELEASENAME) {
+        $script:IsRunningOnCICDServer = $true
+        $script:IsAzureDevOps = $true
+        $script:IsAzureDevOpsRelease = $true
+        Write-Build White "Azure Release Pipeline detected"
+    }
     elseif ($env:GITHUB_ACTIONS) {
         $script:IsRunningOnCICDServer = $true
         $script:IsGitHubActions = $true

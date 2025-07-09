@@ -1,6 +1,12 @@
 # ZeroFailed.DevOps.Common
 
-A [ZeroFailed](https://github.com/zerofailed/ZeroFailed) extension containing general purpose features useful for various DevOps processes.
+[![Build Status](https://github.com/zerofailed/ZeroFailed.DevOps.Common/actions/workflows/build.yml/badge.svg)](https://github.com/zerofailed/ZeroFailed.DevOps.Common/actions/workflows/build.yml)  
+[![GitHub Release](https://img.shields.io/github/release/zerofailed/ZeroFailed.DevOps.Common.svg)](https://github.com/zerofailed/ZeroFailed.DevOps.Common/releases)  
+[![PowerShell Gallery Version](https://img.shields.io/powershellgallery/v/Endjin.ZeroFailed.Build?color=blue)](https://www.powershellgallery.com/packages/ZeroFailed.DevOps.Common)  
+[![License](https://img.shields.io/github/license/zerofailed/ZeroFailed.DevOps.Common.svg)](https://github.com/zerofailed/ZeroFailed.DevOps.Common/blob/main/LICENSE)  
+
+
+A [ZeroFailed](https://github.com/zerofailed/ZeroFailed) extension containing general purpose features useful for a variety of DevOps processes.
 
 ## Overview
 
@@ -8,7 +14,7 @@ A [ZeroFailed](https://github.com/zerofailed/ZeroFailed) extension containing ge
 |----------------|----------|---------------------|
 | Tasks          | yes      | |
 | Functions      | yes      | |
-| Processes      | no       | Designed to be compatible with the default process provided by the [ZeroFailed.Build.Common](https://github.com/zerofailed/ZeroFailed.Build.Common) extension |
+| Processes      | no       | |
 
 For more information about the different component types, please refer to the [ZeroFailed documentation](https://github.com/zerofailed/ZeroFailed/blob/main/README.md#extensions).
 
@@ -16,3 +22,7 @@ This extension consists of the following feature groups, click the links to see 
 
 - Miscellaneous environment checks
 - CI/CD Server integration
+
+## Dependencies
+
+None.

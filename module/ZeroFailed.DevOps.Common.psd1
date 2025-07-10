@@ -70,7 +70,7 @@ PowerShellVersion = '7.0'
 CmdletsToExport = @()
 
 # Variables to export from this module
-VariablesToExport = '*'
+VariablesToExport = ''
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
 # AliasesToExport = @()
@@ -99,7 +99,7 @@ PrivateData = @{
         ProjectUri = 'https://github.com/zerofailed/ZeroFailed.DevOps.Common'
 
         # A URL to an icon representing this module.
-        IconUri = 'https://www.nuget.org/profiles/endjin/avatar'
+        IconUri = 'https://www.nuget.org/profiles/zerofailed/avatar'
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''

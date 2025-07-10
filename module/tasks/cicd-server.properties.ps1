@@ -5,6 +5,7 @@
 # Internal properties not intended for external modification
 $IsRunningOnCICDServer = $false
 $IsAzureDevOps = $false
+$IsAzureDevOpsRelease = $false
 $IsGitHubActions = $false
 
 # Synopsis: When true, no DevOps agent detection will be attempted. Default is false.

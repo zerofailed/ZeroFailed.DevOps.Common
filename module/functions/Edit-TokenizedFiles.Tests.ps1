@@ -23,7 +23,7 @@ Describe "Edit-TokenizedFiles Tests" {
 {
     "settingA": "#{SETTING_A}#",
     "settingB": "B",
-    "settingC": "#{SETTING_A}#__#{SETTING_B}#"
+    "settingC": "#{SETTING_A}#__#{SETTING_B}#__#{SETTING_C}#"
 }    
 "@
             $testJsonFile = "TestDrive:/test-config.json"
@@ -32,6 +32,7 @@ Describe "Edit-TokenizedFiles Tests" {
             $tokenValues = @{
                 SETTING_A = "foo"
                 SETTING_B = "bar"
+                SETTING_C = "too_far"
             }
         }
         
@@ -43,16 +44,18 @@ Describe "Edit-TokenizedFiles Tests" {
         It "should parse the tokens in the target file correctly" {
             # Uses logging calls to verify execution behaviour
 
-            # Messages for the 2 token replacements and the file save operation
-            Should -Invoke Write-Host -Exactly 3
+            # Messages for the 3 token replacements and the file save operation
+            Should -Invoke Write-Host -Exactly 4
 
             # verify processing the correct number of tokens
             Should -Invoke Write-Verbose -ParameterFilter { $Message -eq "Checking for SETTING_A" } -Exactly 1
             Should -Invoke Write-Verbose -ParameterFilter { $Message -eq "Checking for SETTING_B" } -Exactly 1
+            Should -Invoke Write-Verbose -ParameterFilter { $Message -eq "Checking for SETTING_C" } -Exactly 1
             
             # verify expected tokens were processed
             Should -Invoke Write-Host -ParameterFilter { $Object.StartsWith("Patching 'SETTING_A'") } -Exactly 1
             Should -Invoke Write-Host -ParameterFilter { $Object.StartsWith("Patching 'SETTING_B'") } -Exactly 1
+            Should -Invoke Write-Host -ParameterFilter { $Object.StartsWith("Patching 'SETTING_C'") } -Exactly 1
 
             # verify all tokens were found
             Should -Invoke Write-Verbose -ParameterFilter { $Message -eq "Token not found" } -Exactly 0
@@ -67,7 +70,7 @@ Describe "Edit-TokenizedFiles Tests" {
         }
 
         It "should handle multiple tokens referenced on the same line correctly" {
-            (Get-Content -Raw -Path $testJsonFile | ConvertFrom-Json).settingC | Should -Be "foo__bar"
+            (Get-Content -Raw -Path $testJsonFile | ConvertFrom-Json).settingC | Should -Be "foo__bar__too_far"
         }
     }
 

@@ -18,9 +18,9 @@ A [ZeroFailed](https://github.com/zerofailed/ZeroFailed) extension containing ge
 
 For more information about the different component types, please refer to the [ZeroFailed documentation](https://github.com/zerofailed/ZeroFailed/blob/main/README.md#extensions).
 
-This extension consists of the following feature groups, click the links to see their documentation:
+This extension consists of the following feature groups, refer to the [HELP page](./HELP.md) for more details.
 
-- Miscellaneous environment checks
+- General purpose helper tasks
 - CI/CD Server integration
 
 ## Dependencies

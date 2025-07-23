@@ -29,6 +29,7 @@ The diagram below shows the discrete features and when they run as part of the d
 kanban
     init
         ensureghcli[Ensure 'gh' cli installed]
+    version
     build
     test
     analysis

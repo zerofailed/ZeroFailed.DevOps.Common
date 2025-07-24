@@ -14,15 +14,42 @@ A [ZeroFailed](https://github.com/zerofailed/ZeroFailed) extension containing ge
 |----------------|----------|---------------------|
 | Tasks          | yes      | |
 | Functions      | yes      | |
-| Processes      | no       | |
+| Processes      | no       | Designed to be compatible with upstream processes provided by the [ZeroFailed.Build.Common](https://github.com/zerofailed/ZeroFailed.Build.Common) & [ZeroFailed.Deploy.Common](https://github.com/zerofailed/ZeroFailed.Deploy.Common) extensions |
 
 For more information about the different component types, please refer to the [ZeroFailed documentation](https://github.com/zerofailed/ZeroFailed/blob/main/README.md#extensions).
 
-This extension consists of the following feature groups, click the links to see their documentation:
+This extension consists of the following feature groups, refer to the [HELP page](./HELP.md) for more details.
 
-- Miscellaneous environment checks
+- General purpose helper tasks
 - CI/CD Server integration
+
+The diagram below shows the discrete features and when they run as part of the default build process provided by [ZeroFailed.Build.Common](https://github.com/zerofailed/ZeroFailed.Build.Common).
+
+```mermaid
+kanban
+    init
+        ensureghcli[Ensure 'gh' cli installed]
+    version
+    build
+    test
+    analysis
+    package
+    publish
+```
+
+This diagram below shows the same for the default deployment process provided by [ZeroFailed.Deploy.Common](https://github.com/zerofailed/ZeroFailed.Deploy.Common).
+
+```mermaid
+kanban
+    init
+        ensureghcli[Ensure 'gh' cli installed]
+    provision
+    deploy
+    test
+```
 
 ## Dependencies
 
 None.
+
+***NOTE**: This extension is widely referenced and is typically the root dependency for other ZeroFailed extensions.*

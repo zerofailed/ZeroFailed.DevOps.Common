@@ -18,7 +18,7 @@ task EnsureGitHubCli -If { !$SkipEnsureGitHubCli } -After InitCore {
 }
 
 # Synopsis: Installs and imports the specified PowerShell modules. ***NOTE**: PowerShell repositories will be trusted by default.*
-task setupModules -If { $null -ne $RequiredPowerShellModules -and $RequiredPowerShellModules -ne @{} } {
+task setupModules -If { $null -ne $RequiredPowerShellModules -and $RequiredPowerShellModules -ne @{} } -After InitCore {
     Install-PSResource -RequiredResource $RequiredPowerShellModules -Scope CurrentUser -TrustRepository | Out-Null
     $RequiredPowerShellModules.Keys | ForEach-Object { Import-Module $_ }
 }

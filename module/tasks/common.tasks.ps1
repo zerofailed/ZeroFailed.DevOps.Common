@@ -32,8 +32,8 @@ Enter-Build {
     if ($OnEnterActions.Count -gt 0) {
         Write-Build Green "Found $($OnEnterActions.Count) registered 'Enter-Build' action(s)"
         for ($i=0; $i -lt $OnEnterActions.Count; $i++) {
-            # Run the action, but ensure that any remaining actions are run even if the current one fails
             Write-Build White "Running action $i"
+            # Run action, no need to override the default 'ErrorAction' handling for the OnEnter actions
             Invoke-Command -ScriptBlock $OnEnterActions[$i]
         }
     }
@@ -42,8 +42,8 @@ Exit-Build {
     if ($OnExitActions.Count -gt 0) {
         Write-Build Green "Found $($OnExitActions.Count) registered 'Exit-Build' action(s)"
         for ($i=0; $i -lt $OnExitActions.Count; $i++) {
-            # Run the action, but ensure that any remaining actions are run even if the current one fails
             Write-Build White "Running action $i"
+            # Run the action, but ensure that any remaining actions are run even if the current one fails
             Invoke-Command -ScriptBlock $OnExitActions[$i] -ErrorAction Continue
         }
     }

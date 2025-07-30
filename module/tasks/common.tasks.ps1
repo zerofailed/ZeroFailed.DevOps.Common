@@ -18,7 +18,33 @@ task EnsureGitHubCli -If { !$SkipEnsureGitHubCli } -After InitCore {
 }
 
 # Synopsis: Installs and imports the specified PowerShell modules. ***NOTE**: PowerShell repositories will be trusted by default.*
-task setupModules -If { $null -ne $RequiredPowerShellModules -and $RequiredPowerShellModules -ne @{} } {
+task setupModules -If { $null -ne $RequiredPowerShellModules -and $RequiredPowerShellModules -ne @{} } -After InitCore {
     Install-PSResource -RequiredResource $RequiredPowerShellModules -Scope CurrentUser -TrustRepository | Out-Null
     $RequiredPowerShellModules.Keys | ForEach-Object { Import-Module $_ }
+}
+
+
+# Support the special InvokeBuild entry & exit actions in a way that allows
+# extensions to register their own actions and have them run using this
+# built-in InvokeBuild functionality.  This is primarily intended to support
+# compensation scenarios in the event of terminating errors.
+Enter-Build {
+    if ($OnEnterActions.Count -gt 0) {
+        Write-Build Green "Found $($OnEnterActions.Count) registered 'Enter-Build' action(s)"
+        for ($i=0; $i -lt $OnEnterActions.Count; $i++) {
+            # Run the action, but ensure that any remaining actions are run even if the current one fails
+            Write-Build White "Running action $i"
+            Invoke-Command -ScriptBlock $OnEnterActions[$i]
+        }
+    }
+}
+Exit-Build {
+    if ($OnExitActions.Count -gt 0) {
+        Write-Build Green "Found $($OnExitActions.Count) registered 'Exit-Build' action(s)"
+        for ($i=0; $i -lt $OnExitActions.Count; $i++) {
+            # Run the action, but ensure that any remaining actions are run even if the current one fails
+            Write-Build White "Running action $i"
+            Invoke-Command -ScriptBlock $OnExitActions[$i] -ErrorAction Continue
+        }
+    }
 }

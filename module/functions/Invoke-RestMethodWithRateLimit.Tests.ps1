@@ -6,6 +6,7 @@ Describe "Invoke-RestMethodWithRateLimit" {
     
     BeforeAll {
         # Dot source the function files
+        . $PSScriptRoot/Get-HttpHeaderValue.ps1
         . $PSScriptRoot/Invoke-RestMethodWithRateLimit.ps1
         
         # Create test helper to simulate HTTP responses with specific status codes

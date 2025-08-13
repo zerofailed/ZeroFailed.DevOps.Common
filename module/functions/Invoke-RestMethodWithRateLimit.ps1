@@ -84,37 +84,35 @@ function Invoke-RestMethodWithRateLimit {
             if ($_.Exception.Response) {
                 $statusCode = $_.Exception.Response.StatusCode.value__
                 
-                # Look for Retry-After header
+                # Look for rate limiting headers using the extracted validation function
                 if ($_.Exception.Response.Headers) {
-                    $retryAfterHeader = $_.Exception.Response.Headers | Where-Object { $_.Key -eq 'Retry-After' }
-                    $rateLimitRemainingHeader = $_.Exception.Response.Headers | Where-Object { $_.Key -eq 'X-RateLimit-Remaining' }
-                    $rateLimitResetHeader = $_.Exception.Response.Headers | Where-Object { $_.Key -eq 'X-RateLimit-Reset' }
-
-                    # The 'Retry-After' header take precendence (ref: spec?)
-                    if ($retryAfterHeader) {
-                        try {
-                            $retryAfter = [int]$retryAfterHeader.Value[0]
-                        } catch {
-                            Write-Verbose "Could not parse Retry-After header: $($retryAfterHeader.Value[0])"
-                        }
+                    # The 'Retry-After' header takes precedence (ref: spec?)
+                    $retryAfterValue = Get-HttpHeaderValue -Headers $_.Exception.Response.Headers -HeaderName 'Retry-After' -ExpectedType ([int]) -DefaultValue $null
+                    
+                    if ($retryAfterValue) {
+                        $retryAfter = $retryAfterValue
                     }
-                    # Otherwise check whether we have told about a reqeust quota
-                    elseif ($rateLimitRemainingHeader -and $rateLimitResetHeader) {
-                        try {
-                            $rateLimitRemaining = [int]$rateLimitRemainingHeader.Value[0]
-
-                            if ($rateLimitRemaining -eq 0) {
-                                try {
-                                    $rateLimitReset = [int]$rateLimitResetHeader.Value[0]
-                                    $rateLimitReset = [datetime]::FromFileTimeUtc($rateLimitReset)
-                                    $retryAfter = ($rateLimitReset - [datetime]::UtcNow).TotalSeconds
+                    else {
+                        # Otherwise check whether we have been told about a request quota
+                        $rateLimitRemaining = Get-HttpHeaderValue -Headers $_.Exception.Response.Headers -HeaderName 'X-RateLimit-Remaining' -ExpectedType ([int]) -DefaultValue $null
+                        $rateLimitResetFileTime = Get-HttpHeaderValue -Headers $_.Exception.Response.Headers -HeaderName 'X-RateLimit-Reset' -ExpectedType ([long]) -DefaultValue $null
+                        
+                        # When all the required headers are available, set the retry interval based on the 'X-RateLimit-Reset' header
+                        if ($null -ne $rateLimitRemaining -and $rateLimitRemaining -eq 0 -and $rateLimitResetFileTime) {
+                            try {
+                                $rateLimitResetDateTime = [datetime]::FromFileTimeUtc($rateLimitResetFileTime)
+                                $retryAfter = ($rateLimitResetDateTime - [datetime]::UtcNow).TotalSeconds
+                                
+                                # Only use the calculated retry interval if it's positive
+                                if ($retryAfter -gt 0) {
                                     Write-Verbose "Rate limit exceeded. Waiting for quota reset in $retryAfter seconds..."
-                                } catch {
-                                    Write-Verbose "Could not parse X-RateLimit-Reset header: $($rateLimitResetHeader.Value[0])"
+                                } else {
+                                    Write-Verbose "X-RateLimit-Reset time is in the past. Falling back to exponential backoff."
+                                    $retryAfter = $null
                                 }
+                            } catch {
+                                Write-Verbose "Could not convert X-RateLimit-Reset FileTime to DateTime: $rateLimitResetFileTime. Falling back to exponential backoff."
                             }
-                        } catch {
-                            Write-Verbose "Could not parse X-RateLimit-Remaining header: $($rateLimitRemainingHeader.Value[0])"
                         }
                     }
                 }
@@ -132,10 +130,10 @@ function Invoke-RestMethodWithRateLimit {
             
             # Calculate delay with exponential backoff and jitter
             if ($statusCode -eq 429 -and $retryAfter) {
-                # Use server-provided retry-after value
+                # Use server-provided retry-after value, or the 'MaxDelaySeconds' if it is shorter
                 $delaySeconds = [Math]::Min($retryAfter, $MaxDelaySeconds)
                 if ($retryAfter -gt $MaxDelaySeconds) {
-                    Write-Information "Rate limited (429). Server requested waiting $retryAfter seconds, which exceeds MaxDelaySeconds. Waiting for $MaxDelaySeconds seconds."
+                    Write-Information "Rate limited (429). Server requested waiting $retryAfter seconds which exceeds MaxDelaySeconds. Waiting for $MaxDelaySeconds seconds."
                 }
                 else {
                     Write-Information "Rate limited (429). Waiting $delaySeconds seconds as requested by server."

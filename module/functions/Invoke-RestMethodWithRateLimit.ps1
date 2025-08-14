@@ -86,14 +86,15 @@ function Invoke-RestMethodWithRateLimit {
                 
                 # Look for rate limiting headers using the extracted validation function
                 if ($_.Exception.Response.Headers) {
-                    # The 'Retry-After' header takes precedence (ref: spec?)
+                    # Treat 'Retry-After' header as taking precedence as it is the only such mechanism in the current specification
+                    # Ref: https://datatracker.ietf.org/doc/html/rfc7231#section-7.1.3
                     $retryAfterValue = Get-HttpHeaderValue -Headers $_.Exception.Response.Headers -HeaderName 'Retry-After' -ExpectedType ([int]) -DefaultValue $null
                     
                     if ($retryAfterValue) {
                         $retryAfter = $retryAfterValue
                     }
                     else {
-                        # Otherwise check whether we have been told about a request quota
+                        # Whilst no longer part of a current specification, the 'X-RateLimit-*' headers are used in the real world (e.g. GitHub)
                         $rateLimitRemaining = Get-HttpHeaderValue -Headers $_.Exception.Response.Headers -HeaderName 'X-RateLimit-Remaining' -ExpectedType ([int]) -DefaultValue $null
                         $rateLimitResetFileTime = Get-HttpHeaderValue -Headers $_.Exception.Response.Headers -HeaderName 'X-RateLimit-Reset' -ExpectedType ([long]) -DefaultValue $null
                         

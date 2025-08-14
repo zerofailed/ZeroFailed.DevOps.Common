@@ -66,7 +66,7 @@ function Get-HttpHeaderValue {
     }
     
     # Search for header (case-insensitive)
-    $header = $Headers | Where-Object { $_.Key -eq $HeaderName }
+    $header = $Headers | Where-Object { $_.Key -ieq $HeaderName }
     
     if (-not $header) {
         Write-Verbose "Header '$HeaderName' not found in headers collection. Returning default value."

@@ -36,7 +36,9 @@
 .PARAMETER TokenValuePairs
     A hashtable containing the mapping of tokens to their respective values.
 .EXAMPLE
-    TODO
+    $tokens = @{ Path=$(Split-Path -Parent $PSCommandPath); Version='1.2.0' }
+    $files = Get-ChildItem -Filter *.json
+    Edit-TokenizedFiles -FilesToProcess $files -TokenValuePairs tokens
 .NOTES
     NOTE: When customising the 'TokenRegexFormatString', care must be taken to ensure that any characters
     that would other conflict with the format string syntax are suitably escaped.

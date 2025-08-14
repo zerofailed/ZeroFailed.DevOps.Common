@@ -46,7 +46,9 @@ Would result in the file being updated as shown below:
 
 ### EXAMPLE 1
 ```
-TODO
+$tokens = @{ Path=$(Split-Path -Parent $PSCommandPath); Version='1.2.0' }
+$files = Get-ChildItem -Filter *.json
+Edit-TokenizedFiles -FilesToProcess $files -TokenValuePairs tokens
 ```
 
 ## PARAMETERS

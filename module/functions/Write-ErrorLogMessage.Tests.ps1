@@ -19,6 +19,7 @@ Describe 'Write-ErrorLogMessage' {
         It 'should return log the correctly formatted message' {
             
             $IsGitHubActions = $true
+            $IsAzureDevOps = $false
 
             Write-ErrorLogMessage -Message $errorMessage
             
@@ -31,6 +32,7 @@ Describe 'Write-ErrorLogMessage' {
         
         It 'should return log the correctly formatted message' {
             
+            $IsGitHubActions = $false
             $IsAzureDevOps = $true
 
             Write-ErrorLogMessage -Message $errorMessage
@@ -43,6 +45,9 @@ Describe 'Write-ErrorLogMessage' {
     Context 'When not running on a CI/CD platform' {
         
         It 'should log a standard non-terminating error message' {
+            $IsGitHubActions = $false
+            $IsAzureDevOps = $false
+
             Write-ErrorLogMessage -Message $errorMessage
 
             Should -Invoke Write-Error -ParameterFilter { $Message -eq $errorMessage }

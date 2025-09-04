@@ -102,12 +102,26 @@ Describe "'$moduleName' Module Tests" {
             $taskPath | Should -Exist
         }
 
-        It "<task> should have a properties file" {
-            $propertiesPath | Should -Exist
+        It "<task> is valid PowerShell code" {
+            $psFile = Get-Content -Path $taskPath -ErrorAction Stop
+            $errors = $null
+            $null = [System.Management.Automation.PSParser]::Tokenize($psFile, [ref]$errors)
+            $errors.Count | Should -Be 0
         }
 
         It "<task> should have a copyright block" {
             $taskPath | Should -FileContentMatch 'Copyright \(c\) Endjin Limited'
+        }
+
+        It "<task> should have a properties file" {
+            $propertiesPath | Should -Exist
+        }
+
+        It "<task> should have a valid properties file" {
+            $psFile = Get-Content -Path $propertiesPath -ErrorAction Stop
+            $errors = $null
+            $null = [System.Management.Automation.PSParser]::Tokenize($psFile, [ref]$errors)
+            $errors.Count | Should -Be 0
         }
 
         It "<task> properties file should have a copyright block" {

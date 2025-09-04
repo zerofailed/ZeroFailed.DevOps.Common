@@ -12,12 +12,11 @@ This document provides a complete reference for all exported functions in the Ze
 | [Install-DotNetTool](functions/Install-DotNetTool.md)                                         | Simple wrapper to install a .NET global tool if it is not already installed.                                                                   |
 | [Invoke-CommandWithRetry](functions/Invoke-CommandWithRetry.md)                               | Provides retry logic for PowerShell ScriptBlock execution.                                                                                     |
 | [Invoke-RestMethodWithRateLimit](functions/Invoke-RestMethodWithRateLimit.md)                 | Invokes REST API calls with automatic rate limit handling and exponential backoff retry logic.                                                 |
-| [Invoke-RestMethodWithRateLimitAdvanced](functions/Invoke-RestMethodWithRateLimitAdvanced.md) | Advanced REST method wrapper with rate limiting, circuit breaker, and comprehensive monitoring.                                                |
-| [Invoke-WithCircuitBreaker](functions/Invoke-WithCircuitBreaker.md)                           | Implements a circuit breaker pattern for API calls.                                                                                            |
 | [New-TemporaryDirectory](functions/New-TemporaryDirectory.md)                                 | Creates a new temporary directory with a unique name.                                                                                          |
 | [Resolve-Value](functions/Resolve-Value.md)                                                   | Evaluates a provided value which may be static or dynamic.                                                                                     |
 | [Set-BuildServerVariable](functions/Set-BuildServerVariable.md)                               | Abstracts sending formatted log messages to build servers to set build variables.                                                              |
 | [Test-AzCliConnection](functions/Test-AzCliConnection.md)                                     | Checks whether the process is logged-in to the azure-cli.                                                                                      |
+| [Write-ErrorLogMessage](functions/Write-ErrorLogMessage.md)                                   | Writes an error message formatted for the appropriate CI/CD platform, when applicable.                                                         |
 
 ---
 

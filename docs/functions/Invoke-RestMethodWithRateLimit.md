@@ -1,25 +1,34 @@
 ---
-external help file: ZeroFailed.DevOps.Common-help.xml
+document type: cmdlet
+external help file: ZeroFailed.DevOps.Common-Help.xml
+HelpUri: ''
+Locale: en-GB
 Module Name: ZeroFailed.DevOps.Common
-online version:
-schema: 2.0.0
+ms.date: 09/03/2025
+PlatyPS schema version: 2024-05-01
+title: Invoke-RestMethodWithRateLimit
 ---
 
 # Invoke-RestMethodWithRateLimit
 
 ## SYNOPSIS
+
 Invokes REST API calls with automatic rate limit handling and exponential backoff retry logic.
 
 ## SYNTAX
 
+### __AllParameterSets
+
 ```
-Invoke-RestMethodWithRateLimit [-Splat] <Hashtable> [[-MaxRetries] <Int32>] [[-BaseDelaySeconds] <Double>]
- [[-MaxDelaySeconds] <Int32>] [[-RetryBackOffExponentialFactor] <Double>] [-ProgressAction <ActionPreference>]
- [<CommonParameters>]
+Invoke-RestMethodWithRateLimit [-Splat] <hashtable> [[-MaxRetries] <int>]
+ [[-BaseDelaySeconds] <double>] [[-MaxDelaySeconds] <int>]
+ [[-RetryBackOffExponentialFactor] <double>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
+
 This wrapper function handles Fabric API and Microsoft Graph API rate limiting by:
+
 - Detecting HTTP 429 responses
 - Extracting Retry-After headers
 - Implementing exponential backoff with jitter
@@ -29,7 +38,8 @@ This wrapper function handles Fabric API and Microsoft Graph API rate limiting b
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+
+```powershell
 $splat = @{
     Uri = "https://api.fabric.microsoft.com/v1/connections"
     Method = "GET"  
@@ -38,112 +48,130 @@ $splat = @{
 $result = Invoke-RestMethodWithRateLimit -Splat $splat
 ```
 
-### EXAMPLE 2
-```
-# With custom retry parameters
+### EXAMPLE 2 - Using custom retry parameters
+
+```powershell
 $result = Invoke-RestMethodWithRateLimit -Splat $splat -MaxRetries 5 -BaseDelaySeconds 2 -MaxDelaySeconds 120
 ```
 
 ## PARAMETERS
 
-### -Splat
-Hashtable containing all parameters for Invoke-RestMethod (Uri, Method, Headers, Body, etc.)
-
-```yaml
-Type: Hashtable
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -MaxRetries
-Maximum number of retry attempts (default: 3)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 2
-Default value: 3
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -BaseDelaySeconds
-Base delay in seconds for exponential backoff (default: 1)
+
+Base delay in seconds for exponential backoff (default: 1).
 
 ```yaml
-Type: Double
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: 1
-Accept pipeline input: False
-Accept wildcard characters: False
+Type: System.Double
+DefaultValue: 1
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 2
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
 ### -MaxDelaySeconds
-Maximum delay in seconds between retries (default: 60)
+
+Maximum delay in seconds between retries (default: 60).
 
 ```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
+Type: System.Int32
+DefaultValue: 60
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 3
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
+```
 
-Required: False
-Position: 4
-Default value: 60
-Accept pipeline input: False
-Accept wildcard characters: False
+### -MaxRetries
+
+Maximum number of retry attempts (default: 3).
+
+```yaml
+Type: System.Int32
+DefaultValue: 3
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 1
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
 ### -RetryBackOffExponentialFactor
-{{ Fill RetryBackOffExponentialFactor Description }}
+
+The factor used when calculating how quickly the exponential backoff should increase. Defaults to 1.5.
 
 ```yaml
-Type: Double
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 5
-Default value: 1.5
-Accept pipeline input: False
-Accept wildcard characters: False
+Type: System.Double
+DefaultValue: 1.5
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 4
+  IsRequired: false
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
+### -Splat
+
+Hashtable containing all parameters for Invoke-RestMethod (Uri, Method, Headers, Body, etc.)
 
 ```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
+Type: System.Collections.Hashtable
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: true
+  ValueFromPipeline: false
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ## OUTPUTS
 
-### Returns the response from Invoke-RestMethod on successful execution.
-## NOTES
+### System.Object
 
-## RELATED LINKS
+Returns the response from Invoke-RestMethod on successful execution.

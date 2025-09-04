@@ -1,55 +1,51 @@
 ---
-external help file: ZeroFailed.DevOps.Common-help.xml
+document type: cmdlet
+external help file: ZeroFailed.DevOps.Common-Help.xml
+HelpUri: ''
+Locale: en-GB
 Module Name: ZeroFailed.DevOps.Common
-online version:
-schema: 2.0.0
+ms.date: 09/03/2025
+PlatyPS schema version: 2024-05-01
+title: Test-AzCliConnection
 ---
 
 # Test-AzCliConnection
 
 ## SYNOPSIS
-Checks whether the process is logged-in to the azure-cli.
+
+Checks whether the current process is logged-in to the azure-cli with a valid access token.
 
 ## SYNTAX
 
+### __AllParameterSets
+
 ```
-Test-AzCliConnection [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Test-AzCliConnection [<CommonParameters>]
 ```
 
 ## DESCRIPTION
+
 Returns true when a valid azure-cli access token is found, otherwise returns false.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+
+```powershell
 if (Test-AzCliConnection) { & az storage list } else { Write-Error "Please run 'az login'" }
 ```
 
 ## PARAMETERS
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-## INPUTS
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## OUTPUTS
 
-## NOTES
+### System.Boolean
 
-## RELATED LINKS
+Returns true when a valid azure-cli access token is found, otherwise returns false.

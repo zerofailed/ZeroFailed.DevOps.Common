@@ -2,25 +2,6 @@
 # Copyright (c) Endjin Limited. All rights reserved.
 # </copyright>
 
-<#
-.SYNOPSIS
-    Provides retry logic for PowerShell ScriptBlock execution.
-
-.DESCRIPTION
-    Provides retry logic for PowerShell ScriptBlock execution.
-
-.PARAMETER Command
-    Sets the scriptblock to be executed.
-
-.PARAMETER RetryCount
-    Sets the maximum retry attempts. Defaults to 5.
-
-.PARAMETER RetryDelay
-    Sets the delay (in seconds) between retry attempts. Defaults to 5 seconds.
-
-.EXAMPLE
-    PS:> Invoke-CommandWithRetry -Command { Invoke-WebRequest https://somesite.com/unreliable-service } -RetryCount 3 -RetryDelay 10
-#>
 function Invoke-CommandWithRetry
 {
     [CmdletBinding()]

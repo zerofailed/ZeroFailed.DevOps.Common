@@ -1,45 +1,55 @@
 ---
-external help file: ZeroFailed.DevOps.Common-help.xml
+document type: cmdlet
+external help file: ZeroFailed.DevOps.Common-Help.xml
+HelpUri: ''
+Locale: en-GB
 Module Name: ZeroFailed.DevOps.Common
-online version:
-schema: 2.0.0
+ms.date: 09/03/2025
+PlatyPS schema version: 2024-05-01
+title: Resolve-Value
 ---
 
 # Resolve-Value
 
 ## SYNOPSIS
+
 Evaluates a provided value which may be static or dynamic.
 
 ## SYNTAX
 
+### __AllParameterSets
+
 ```
-Resolve-Value [-Value] <Object> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+Resolve-Value [-Value] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
+
 This cmdlet accepts a value of any type and evaluates it:
 - If the value is a scriptblock, it invokes the scriptblock and returns its result
 - If the value is any other type, it returns the value unchanged
 
-This allows configuration to be defined either as static values or as scriptblocks that
-provide dynamic values determined at runtime.
+This allows configuration to be defined either as static values or as scriptblocks that provide dynamic values determined at runtime.
 
 ## EXAMPLES
 
-### EXAMPLE 1
-```
+### EXAMPLE 1 - Resolving a static value
+
+```powershell
 "StaticValue" | Resolve-Value
 StaticValue
 ```
 
-### EXAMPLE 2
-```
+### EXAMPLE 2 - Resolving a PowerShell expression
+
+```powershell
 { Get-Date -Format "yyyy-MM-dd" } | Resolve-Value
 2023-04-15
 ```
 
-### EXAMPLE 3
-```
+### EXAMPLE 3 - Resolving a PowerShell variable that is not defined at initialisation time
+
+```powershell
 $foo = { $bar }
 PS> $bar = "DeferredValue"
 PS> Resolve-Value $foo
@@ -49,46 +59,41 @@ DeferredValue
 ## PARAMETERS
 
 ### -Value
-The configuration value to be resolved.
-This can be any object type, including scriptblocks.
+
+The configuration value to be resolved. This can be any object type, including a scriptblock.
 
 ```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 1
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
+Type: System.Object
+DefaultValue: ''
+SupportsWildcards: false
+Aliases: []
+ParameterSets:
+- Name: (All)
+  Position: 0
+  IsRequired: true
+  ValueFromPipeline: true
+  ValueFromPipelineByPropertyName: false
+  ValueFromRemainingArguments: false
+DontShow: false
+AcceptedValues: []
+HelpMessage: ''
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable,
+-InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
+-ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
+[about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### You can pipe any object to Resolve-Value.
+### System.Object
+
+You can pipe any object to Resolve-Value.
+
 ## OUTPUTS
 
-### Returns the resolved value. If the input was a scriptblock, returns the result of invoking it;
-### otherwise returns the input value unchanged.
-## NOTES
+### System.Object
 
-## RELATED LINKS
+Returns the resolved value. If the input was a scriptblock, returns the result of invoking it; otherwise returns the input value unchanged.

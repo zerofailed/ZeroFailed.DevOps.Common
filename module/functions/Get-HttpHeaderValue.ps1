@@ -2,45 +2,6 @@
 # Copyright (c) Endjin Limited. All rights reserved.
 # </copyright>
 
-<#
-.SYNOPSIS
-Extracts and validates HTTP header values from a headers collection with type conversion.
-
-.DESCRIPTION
-This function searches for a specific HTTP header in a headers collection and attempts to convert it to the specified type.
-It provides robust error handling, case-insensitive header matching, and verbose logging for debugging.
-
-.PARAMETER Headers
-The collection of HTTP headers to search through. Each header should have a Key and Value property.
-
-.PARAMETER HeaderName
-The name of the header to search for (case-insensitive).
-
-.PARAMETER ExpectedType
-The .NET type to convert the header value to (e.g., [int], [datetime], [string], [double]).
-
-.PARAMETER DefaultValue
-The default value to return if the header is not found or cannot be parsed. Must be compatible with ExpectedType.
-
-.OUTPUTS
-Returns the typed header value if found and successfully parsed, otherwise returns the DefaultValue.
-
-.EXAMPLE
-# Extract Retry-After header as integer
-$retryAfter = Get-HttpHeaderValue -Headers $response.Headers -HeaderName "Retry-After" -ExpectedType ([int]) -DefaultValue 0
-
-.EXAMPLE
-# Extract X-RateLimit-Reset header as datetime from FileTime
-$headers = $response.Headers
-$resetTime = Get-HttpHeaderValue -Headers $headers -HeaderName "X-RateLimit-Reset" -ExpectedType ([long]) -DefaultValue 0
-if ($resetTime -gt 0) {
-    $resetDateTime = [datetime]::FromFileTimeUtc($resetTime)
-}
-
-.EXAMPLE
-# Extract custom header as string
-$customValue = Get-HttpHeaderValue -Headers $response.Headers -HeaderName "X-Custom-Header" -ExpectedType ([string]) -DefaultValue "default"
-#>
 function Get-HttpHeaderValue {
     [CmdletBinding()]
     param (

@@ -47,6 +47,7 @@ Describe "'$moduleName' Module Tests" {
             $functionTestsPath = $_.FullName.Replace('.ps1', '.Tests.ps1')
             $functionDir = $_.Directory.FullName
             $isPrivateFunction = $_.Name.StartsWith('_')
+            $markdownDocPath = Join-Path $here 'docs' 'functions' "$(Split-Path -LeafBase $_.Name).md"
         }
         
         It "<function> should exist" {
@@ -57,21 +58,12 @@ Describe "'$moduleName' Module Tests" {
             $functionPath | Should -FileContentMatch 'Copyright \(c\) Endjin Limited'
         }
 
-        It "<function> should have help block" {
-            $functionPath | Should -FileContentMatch '<#'
-            $functionPath | Should -FileContentMatch '#>'
-        }
-
-        It "<function> should have a SYNOPSIS section in the help block" {
-            $functionPath | Should -FileContentMatch '.SYNOPSIS'
-        }
-
-        It "<function> should have a DESCRIPTION section in the help block" {
-            $functionPath | Should -FileContentMatch '.DESCRIPTION'
-        }
-
-        It "<function> should have a EXAMPLE section in the help block" {
-          $functionPath | Should -FileContentMatch '.EXAMPLE'
+        It "<function> should have a PlatyPS markdown documentation file with no placeholders" {
+            if (!$isPrivateFunction) {
+                $markdownDocPath | Should -Exist
+                $doc = Import-MarkdownCommandHelp -Path $markdownDocPath
+                $doc | Should -Not -Match '\"\{\{.*\}\}\"'
+            }
         }
 
         It "<function> should be an advanced function" {

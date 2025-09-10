@@ -5,6 +5,7 @@
 function Get-DotNetTool
 {
     [CmdletBinding(DefaultParameterSetName="global")]
+    [OutputType([Hashtable])]
     param (
         [Parameter(Mandatory=$true)]
         [string] $Name,

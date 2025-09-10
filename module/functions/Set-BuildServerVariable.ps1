@@ -5,6 +5,7 @@
 function Set-BuildServerVariable
 {
     [CmdletBinding()]
+    [OutputType([System.Void])]
     param (
         [Parameter(Mandatory=$true)]
         [string] $Name,

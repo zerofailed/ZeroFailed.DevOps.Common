@@ -5,6 +5,7 @@
 function Install-DotNetTool
 {
     [CmdletBinding(DefaultParameterSetName="global")]
+    [OutputType([String])]
     param (
         [Parameter(Mandatory=$true, Position=0)]
         [string] $Name,

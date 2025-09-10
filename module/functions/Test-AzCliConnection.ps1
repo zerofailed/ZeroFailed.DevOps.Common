@@ -5,6 +5,7 @@
 function Test-AzCliConnection
 {
     [CmdletBinding()]
+    [OutputType([Boolean])]
     param (
     )
 

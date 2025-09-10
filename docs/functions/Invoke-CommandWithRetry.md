@@ -4,7 +4,7 @@ external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
 Locale: en-GB
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 09/03/2025
+ms.date: 09/10/2025
 PlatyPS schema version: 2024-05-01
 title: Invoke-CommandWithRetry
 ---
@@ -23,6 +23,8 @@ Provides retry logic for PowerShell ScriptBlock execution.
 Invoke-CommandWithRetry [-Command] <scriptblock> [[-RetryCount] <int>] [[-RetryDelay] <int>]
  [<CommonParameters>]
 ```
+
+## ALIASES
 
 ## DESCRIPTION
 
@@ -108,8 +110,16 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
 [about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
+## INPUTS
+
 ## OUTPUTS
 
 ### System.Object
 
-Returns whatever is output by the executed command.
+The function returns the output from the invoked command.
+
+## NOTES
+
+## RELATED LINKS
+
+- []()

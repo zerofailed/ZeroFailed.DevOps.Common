@@ -4,6 +4,7 @@
 
 function Resolve-Value {
     [CmdletBinding()]
+    [OutputType([Object])]
     param (
         [Parameter(Mandatory, ValueFromPipeline)]
         [AllowEmptyString()]

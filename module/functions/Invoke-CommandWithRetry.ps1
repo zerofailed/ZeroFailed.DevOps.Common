@@ -5,6 +5,7 @@
 function Invoke-CommandWithRetry
 {
     [CmdletBinding()]
+    [OutputType([Object])]
     param
     (
         [Parameter(Mandatory=$true)]

@@ -4,6 +4,7 @@
 
 function New-TemporaryDirectory {
     [CmdletBinding()]
+    [OutputType([System.IO.DirectoryInfo])]
     param ()
 
     $parent = [System.IO.Path]::GetTempPath()

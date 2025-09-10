@@ -4,7 +4,7 @@ external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
 Locale: en-GB
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 09/03/2025
+ms.date: 09/10/2025
 PlatyPS schema version: 2024-05-01
 title: Write-ErrorLogMessage
 ---
@@ -22,6 +22,8 @@ Writes an error message formatted for the appropriate CI/CD platform, when appli
 ```
 Write-ErrorLogMessage [-Message] <string> [<CommonParameters>]
 ```
+
+## ALIASES
 
 ## DESCRIPTION
 
@@ -44,6 +46,7 @@ PS:> Write-ErrorMessage "Something bad happened!"
 ```
 
 ### EXAMPLE 3 - When running interactively
+
 ```
 PS:> Write-ErrorMessage "Something bad happened!"
 Write-Error: Something bad happened!
@@ -79,6 +82,16 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
 [about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
+## INPUTS
+
+## OUTPUTS
+
+### System.Void
+
+The function has no outputs.
+
 ## NOTES
 
-When running interactively the 'Write-Error' message will be treated as non-terminating, regardless of the current $ErrorActionPreference value.
+## RELATED LINKS
+
+- []()

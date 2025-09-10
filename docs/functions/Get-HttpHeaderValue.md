@@ -4,7 +4,7 @@ external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
 Locale: en-GB
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 09/03/2025
+ms.date: 09/10/2025
 PlatyPS schema version: 2024-05-01
 title: Get-HttpHeaderValue
 ---
@@ -23,6 +23,8 @@ Extracts and validates HTTP header values from a headers collection with type co
 Get-HttpHeaderValue [-Headers] <Object[]> [-HeaderName] <string> [-ExpectedType] <type>
  [[-DefaultValue] <Object>] [<CommonParameters>]
 ```
+
+## ALIASES
 
 ## DESCRIPTION
 
@@ -151,5 +153,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Returns the typed header value if found and successfully parsed
+### System.Object
 
+The function returns an appropriately-type value of the HTTP header.
+
+## NOTES
+
+## RELATED LINKS
+
+- []()

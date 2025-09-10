@@ -4,7 +4,7 @@ external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
 Locale: en-GB
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 09/03/2025
+ms.date: 09/10/2025
 PlatyPS schema version: 2024-05-01
 title: Set-BuildServerVariable
 ---
@@ -22,6 +22,8 @@ Abstracts sending formatted log messages to build servers to set build variables
 ```
 Set-BuildServerVariable [-Name] <string> [-Value] <Object> [<CommonParameters>]
 ```
+
+## ALIASES
 
 ## DESCRIPTION
 
@@ -85,3 +87,17 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable,
 -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
 [about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+### System.Void
+
+The function has no outputs.
+
+## NOTES
+
+## RELATED LINKS
+
+- []()

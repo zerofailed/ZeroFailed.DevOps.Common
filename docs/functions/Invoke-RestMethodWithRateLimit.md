@@ -4,7 +4,7 @@ external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
 Locale: en-GB
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 09/03/2025
+ms.date: 09/10/2025
 PlatyPS schema version: 2024-05-01
 title: Invoke-RestMethodWithRateLimit
 ---
@@ -25,6 +25,8 @@ Invoke-RestMethodWithRateLimit [-Splat] <hashtable> [[-MaxRetries] <int>]
  [[-RetryBackOffExponentialFactor] <double>] [<CommonParameters>]
 ```
 
+## ALIASES
+
 ## DESCRIPTION
 
 This wrapper function handles Fabric API and Microsoft Graph API rate limiting by:
@@ -42,7 +44,7 @@ This wrapper function handles Fabric API and Microsoft Graph API rate limiting b
 ```powershell
 $splat = @{
     Uri = "https://api.fabric.microsoft.com/v1/connections"
-    Method = "GET"  
+    Method = "GET"
     Headers = @{ Authorization = "Bearer $token" }
 }
 $result = Invoke-RestMethodWithRateLimit -Splat $splat
@@ -174,4 +176,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.Object
 
-Returns the response from Invoke-RestMethod on successful execution.
+The function returns the response from the REST method call.
+
+## NOTES
+
+## RELATED LINKS
+
+- []()

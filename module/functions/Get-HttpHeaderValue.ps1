@@ -4,6 +4,7 @@
 
 function Get-HttpHeaderValue {
     [CmdletBinding()]
+    [OutputType([Object])]
     param (
         [Parameter(Mandatory=$true)]
         [AllowNull()]

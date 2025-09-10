@@ -5,6 +5,7 @@
 function Edit-TokenizedFiles
 {
     [CmdletBinding(SupportsShouldProcess)]
+    [OutputType([System.Void])]
     param (
         [string[]] $FilesToProcess,
         [string] $TokenRegexFormatString = "\#\{{{0}\}}\#",     # the escaped curly brackets need to be doubled-up to work properly with the format string

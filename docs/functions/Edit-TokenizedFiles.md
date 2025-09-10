@@ -4,7 +4,7 @@ external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
 Locale: en-GB
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 09/03/2025
+ms.date: 09/10/2025
 PlatyPS schema version: 2024-05-01
 title: Edit-TokenizedFiles
 ---
@@ -23,6 +23,8 @@ Searches multiple files for occurrences of multiple strings following a regular 
 Edit-TokenizedFiles [[-FilesToProcess] <string[]>] [[-TokenRegexFormatString] <string>]
  [[-TokenValuePairs] <hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
+
+## ALIASES
 
 ## DESCRIPTION
 
@@ -191,6 +193,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
 [about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
+## INPUTS
+
+## OUTPUTS
+
+### System.Void
+
+This function has no outputs.
+
 ## NOTES
 
 When customising the `TokenRegexFormatString`, care must be taken to ensure that any characters
@@ -200,3 +210,7 @@ For example, the pattern used above requires the braces to be escaped: `\#\{{{0}
 
 - Regex syntax requires `#`, `{` and `}` characters to be escaped with the backslash
 - Format string syntax requires the `{` and `}` characters not related to the format string are escaped by doubling them up
+
+## RELATED LINKS
+
+- []()

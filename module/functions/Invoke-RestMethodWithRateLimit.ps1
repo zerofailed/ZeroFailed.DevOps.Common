@@ -4,6 +4,7 @@
 
 function Invoke-RestMethodWithRateLimit {
     [CmdletBinding()]
+    [OutputType([Object])]
     param (
         [Parameter(Mandatory=$true)]
         [hashtable] $Splat,

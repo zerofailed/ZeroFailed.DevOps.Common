@@ -4,6 +4,7 @@
 
 function Write-ErrorLogMessage {
     [CmdletBinding()]
+    [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
         [string] $Message

@@ -4,7 +4,7 @@ external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
 Locale: en-GB
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 09/03/2025
+ms.date: 09/10/2025
 PlatyPS schema version: 2024-05-01
 title: New-TemporaryDirectory
 ---
@@ -22,6 +22,8 @@ Creates a new temporary directory with a unique name.
 ```
 New-TemporaryDirectory [<CommonParameters>]
 ```
+
+## ALIASES
 
 ## DESCRIPTION
 
@@ -61,6 +63,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see
 [about_CommonParameters](https://go.microsoft.com/fwlink/?LinkID=113216).
 
+## INPUTS
+
 ## OUTPUTS
 
 ### System.IO.DirectoryInfo
@@ -69,5 +73,6 @@ The function returns the DirectoryInfo object for the created temporary director
 
 ## NOTES
 
-The caller is responsible for deleting the temporary directory when it's no longer needed.
-The directory will not be automatically removed when the PowerShell session ends.
+## RELATED LINKS
+
+- []()

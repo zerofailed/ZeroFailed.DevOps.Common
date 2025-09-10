@@ -4,7 +4,7 @@ external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
 Locale: en-GB
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 09/03/2025
+ms.date: 09/10/2025
 PlatyPS schema version: 2024-05-01
 title: Resolve-Value
 ---
@@ -22,6 +22,8 @@ Evaluates a provided value which may be static or dynamic.
 ```
 Resolve-Value [-Value] <Object> [<CommonParameters>]
 ```
+
+## ALIASES
 
 ## DESCRIPTION
 
@@ -96,4 +98,10 @@ You can pipe any object to Resolve-Value.
 
 ### System.Object
 
-Returns the resolved value. If the input was a scriptblock, returns the result of invoking it; otherwise returns the input value unchanged.
+The function returns the resolved value. If the input was a scriptblock, returns the result of invoking it; otherwise returns the input value unchanged.
+
+## NOTES
+
+## RELATED LINKS
+
+- []()

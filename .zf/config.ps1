@@ -11,7 +11,7 @@ $zerofailedExtensions = @(
     @{
         Name = "ZeroFailed.Build.PowerShell"
         GitRepository = "https://github.com/zerofailed/ZeroFailed.Build.PowerShell.git"
-        GitRef = "feature/add-platyps-support"
+        GitRef = "main"
     }
     @{
         Name = "ZeroFailed.Build.GitHub"

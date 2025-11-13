@@ -4,7 +4,7 @@ external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
 Locale: en-GB
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 09/10/2025
+ms.date: 11/13/2025
 PlatyPS schema version: 2024-05-01
 title: Resolve-Value
 ---

@@ -155,7 +155,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.Object
 
-The function returns an appropriately-type value of the HTTP header.
+The function returns an appropriately-typed value of the HTTP header.
 
 ## NOTES
 

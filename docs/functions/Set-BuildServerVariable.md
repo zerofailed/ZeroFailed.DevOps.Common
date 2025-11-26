@@ -27,7 +27,7 @@ Set-BuildServerVariable [-Name] <string> [-Value] <Object> [<CommonParameters>]
 
 ## DESCRIPTION
 
-Identifies the current build server using well-known environmnent variables and outputs correctly formatted log messages that will set variables within the build server context. Currently supports Azure Pipelines and GitHub Actions.
+Identifies the current build server using well-known environment variables and outputs correctly formatted log messages that will set variables within the build server context. Currently supports Azure Pipelines and GitHub Actions.
 
 ## EXAMPLES
 

@@ -34,21 +34,21 @@ Writes an error message formatted for the appropriate CI/CD platform, when appli
 ### EXAMPLE 1 - When running in Azure Pipelines
 
 ```
-PS:> Write-ErrorMessage "Something bad happened!"
+PS:> Write-ErrorLogMessage "Something bad happened!"
 ##[error]Something bad happened!
 ```
 
 ### EXAMPLE 2 - When running in GitHub Actions
 
 ```
-PS:> Write-ErrorMessage "Something bad happened!"
+PS:> Write-ErrorLogMessage "Something bad happened!"
 ::error::Something bad happened!
 ```
 
 ### EXAMPLE 3 - When running interactively
 
 ```
-PS:> Write-ErrorMessage "Something bad happened!"
+PS:> Write-ErrorLogMessage "Something bad happened!"
 Write-Error: Something bad happened!
 ```
 

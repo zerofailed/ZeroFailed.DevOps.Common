@@ -13,7 +13,7 @@ function Write-ErrorLogMessage {
     if ($IsGitHubActions) {
         Write-Information -MessageData ("`n::error::{0}" -f $Message) -InformationAction Continue
     }
-    elseif ($IsAzureDevOps ) {
+    elseif ($IsAzureDevOps) {
         Write-Information -MessageData ("`n##[error]{0}" -f $Message) -InformationAction Continue
     }
     else {

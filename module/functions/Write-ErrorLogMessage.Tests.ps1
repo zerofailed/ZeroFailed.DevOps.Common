@@ -16,7 +16,7 @@ Describe 'Write-ErrorLogMessage' {
     
     Context 'When running in GitHub Actions' {
         
-        It 'should return log the correctly formatted message' {
+        It 'should log the correctly formatted message' {
             
             $IsGitHubActions = $true
             $IsAzureDevOps = $false
@@ -30,7 +30,7 @@ Describe 'Write-ErrorLogMessage' {
 
     Context 'When running in Azure DevOps' {
         
-        It 'should return log the correctly formatted message' {
+        It 'should log the correctly formatted message' {
             
             $IsGitHubActions = $false
             $IsAzureDevOps = $true

@@ -25,7 +25,7 @@ CompanyName = 'Endjin Limited'
 Copyright = '(c) endjin. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'An extension for ZeroFailed with general purpose features for DevOps processes'
+Description = 'A ZeroFailed extension with general purpose features for DevOps processes'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '7.0'

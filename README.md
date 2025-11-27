@@ -10,10 +10,10 @@ A [ZeroFailed](https://github.com/zerofailed/ZeroFailed) extension containing ge
 
 ## Overview
 
-| Component Type | Included | Notes               |
-|----------------|----------|---------------------|
-| Tasks          | yes      | |
-| Functions      | yes      | |
+| Component Type | Included | Notes                                                                                                                                                                                                                                              |
+| -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tasks          | yes      |                                                                                                                                                                                                                                                    |
+| Functions      | yes      | [Function Reference](docs/functions.md)                                                                                                                                                                                                            |
 | Processes      | no       | Designed to be compatible with upstream processes provided by the [ZeroFailed.Build.Common](https://github.com/zerofailed/ZeroFailed.Build.Common) & [ZeroFailed.Deploy.Common](https://github.com/zerofailed/ZeroFailed.Deploy.Common) extensions |
 
 For more information about the different component types, please refer to the [ZeroFailed documentation](https://github.com/zerofailed/ZeroFailed/blob/main/README.md#extensions).

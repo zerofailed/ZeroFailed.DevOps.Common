@@ -1,5 +1,13 @@
 # Extensions setup
 $zerofailedExtensions = @(
+    # Ensure that builds always using the current repository version of this extension:
+    # - Validates that any changes work with the build process
+    # - Avoids any conflicts when generating PlatyPS markdown documentation for the repository version
+    @{
+        Name = "ZeroFailed.DevOps.Common"
+        Path = "$here/module"
+    }
+
     @{
         Name = "ZeroFailed.Build.PowerShell"
         GitRepository = "https://github.com/zerofailed/ZeroFailed.Build.PowerShell.git"
@@ -17,6 +25,7 @@ $zerofailedExtensions = @(
 
 # Set the required build options
 $PesterTestsDir = "$here/module"
+$PesterCodeCoveragePaths = @("$here/module/functions")
 $PesterVersion = "5.7.1"
 $PowerShellModulesToPublish = @(
     @{
@@ -26,6 +35,9 @@ $PowerShellModulesToPublish = @(
         AliasesToExport = @()
     }
 )
+$PSMarkdownDocsFlattenOutputPath = $true
+$PSMarkdownDocsOutputPath = './docs/functions'
+$PSMarkdownDocsIncludeModulePage = $false
 $CreateGitHubRelease = $true
 
 # Customise the build process

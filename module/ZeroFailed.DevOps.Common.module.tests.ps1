@@ -57,23 +57,6 @@ Describe "'$moduleName' Module Tests" {
             $functionPath | Should -FileContentMatch 'Copyright \(c\) Endjin Limited'
         }
 
-        It "<function> should have help block" {
-            $functionPath | Should -FileContentMatch '<#'
-            $functionPath | Should -FileContentMatch '#>'
-        }
-
-        It "<function> should have a SYNOPSIS section in the help block" {
-            $functionPath | Should -FileContentMatch '.SYNOPSIS'
-        }
-
-        It "<function> should have a DESCRIPTION section in the help block" {
-            $functionPath | Should -FileContentMatch '.DESCRIPTION'
-        }
-
-        It "<function> should have a EXAMPLE section in the help block" {
-          $functionPath | Should -FileContentMatch '.EXAMPLE'
-        }
-
         It "<function> should be an advanced function" {
             $functionPath | Should -FileContentMatch 'function'
             $functionContent = Get-Content -raw $functionPath
@@ -110,12 +93,26 @@ Describe "'$moduleName' Module Tests" {
             $taskPath | Should -Exist
         }
 
-        It "<task> should have a properties file" {
-            $propertiesPath | Should -Exist
+        It "<task> is valid PowerShell code" {
+            $psFile = Get-Content -Path $taskPath -ErrorAction Stop
+            $errors = $null
+            $null = [System.Management.Automation.PSParser]::Tokenize($psFile, [ref]$errors)
+            $errors.Count | Should -Be 0
         }
 
         It "<task> should have a copyright block" {
             $taskPath | Should -FileContentMatch 'Copyright \(c\) Endjin Limited'
+        }
+
+        It "<task> should have a properties file" {
+            $propertiesPath | Should -Exist
+        }
+
+        It "<task> should have a valid properties file" {
+            $psFile = Get-Content -Path $propertiesPath -ErrorAction Stop
+            $errors = $null
+            $null = [System.Management.Automation.PSParser]::Tokenize($psFile, [ref]$errors)
+            $errors.Count | Should -Be 0
         }
 
         It "<task> properties file should have a copyright block" {

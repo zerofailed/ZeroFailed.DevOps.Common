@@ -23,6 +23,81 @@ task setupModules -If { $null -ne $RequiredPowerShellModules -and $RequiredPower
     $RequiredPowerShellModules.Keys | ForEach-Object { Import-Module $_ }
 }
 
+# Synopsis: Uses the gilt tool to copy/overlay content from other git repositories in the current repo.
+task RunGilt -If { !$SkipRunGilt } -After InitCore CheckGiltConfig,ApplyGiltOverlay
+
+# Synopsis: Check whether a gilt configuration file is available.
+task CheckGiltConfig {
+    if (!(Test-Path $GiltConfigPath)) {
+        Write-Build Yellow "No gilt configuration file found at '$GiltConfigPath' - skipping tasks"
+        $script:SkipRunGilt = $true
+    }
+}
+
+# Synopsis: Installs the gilt tool via GitHub release artifacts using the GitHub CLI.
+task InstallGiltTool EnsureGitHubCli,{
+
+    $installDir = Join-Path $here '.zf' 'bin'
+    $installedToolPath = Join-Path $installDir 'gilt'
+
+    $existingCommand = Get-Command gilt -ErrorAction Ignore
+    if ($existingCommand -and !$ForceInstallGilt) {
+        # The gilt tool is already installed and available in the PATH
+        $script:GiltPath = $existingCommand.Path
+    }
+    elseif ((Get-Command $installedToolPath -ErrorAction Ignore)) {
+        # This extension has previously installed gilt
+        $script:GiltPath = $installPath
+    }
+    else {
+        # Construct the required gh CLI command to download the required GitHub release artifact
+        $splat = @(
+            'release', 'download', '-R'
+        )
+        $giltRelease = "v$GiltVersion"
+
+        if ($IsWindows) {
+            $splat += @(
+                'endjin/gilt'
+                $giltRelease
+                '-p'
+                "gilt.exe"
+                '-O', (Join-Path $installDir 'gilt.exe')
+            )
+        }
+        elseif ($IsLinux) {
+            $splat += @(
+                'retr0h/gilt'
+                $giltRelease
+                '-p'
+                "gilt_*_linux_amd64"
+                '-O', (Join-Path $installDir 'gilt')
+            )
+        }
+        elseif ($IsMacOS) {
+            $splat += @(
+                'retr0h/gilt'
+                $giltRelease
+                '-p'
+                "gilt_*_darwin_all"
+                '-O', (Join-Path $installDir 'gilt')
+            )
+        }
+
+        New-Item -ItemType Directory -Path $installDir -Force | Out-Null
+        Write-Verbose "cmd: gh $splat" -Verbose
+        exec { & gh @splat }
+
+        # Update the configuration property so other tasks can find the gilt tool
+        $script:GiltPath = $installedToolPath
+    }
+}
+
+# Synopsis: Executes the 'gilt overlay' command
+task ApplyGiltOverlay -If { !$SkipRunGilt } InstallGiltTool,{
+    Write-Build White "Running 'gilt overlay'..."
+    exec { & $GiltPath overlay}
+}
 
 # Support the special InvokeBuild entry & exit actions in a way that allows
 # extensions to register their own actions and have them run using this

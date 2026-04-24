@@ -34,7 +34,7 @@ task setupModules -If { $null -ne $RequiredPowerShellModules -and $RequiredPower
 # run a nested build, thus allowing one or more Tasks to be run in this way.
 # However, to avoid recursion errors we must provide a mechanism for ZF to know when
 # it is already running in this context. When executing the actions we set a
-# well-known variable that the 'Register-On*Action' helper functions look for when
+# well-known variable that the 'Register-On*Action' helper functions look for
 # when deciding whether to do the actual registration.
 Enter-Build {
     if ($OnEnterActions.Count -gt 0) {

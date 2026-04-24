@@ -37,7 +37,7 @@ Register-OnExitAction -Action { Write-Build White 'Doing some clena-up' }
 
 ### Example 2 - Running a nested build
 
-Register-OnEnterAction -Action { Invoke-Build -File my.tasks.ps1 -Task MyCleanupTask }
+Register-OnExitAction -Action { Invoke-Build -File my.tasks.ps1 -Task MyCleanupTask }
 
 ## PARAMETERS
 

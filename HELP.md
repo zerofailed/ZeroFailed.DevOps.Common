@@ -56,10 +56,10 @@ This extension's `common.tasks.ps1` defines these hooks and uses them to iterate
 
 ### Properties
 
-| Name             | Default Value | ENV Override | Description                                                                                                                  |
-| ---------------- | ------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| `OnEnterActions` | `@()`         |              | [Extensibility Point] A collection of scriptblocks run as part of InvokeBuild's `Enter-Build` hook at the start of a build. |
-| `OnExitActions`  | `@()`         |              | [Extensibility Point] A collection of scriptblocks run as part of InvokeBuild's `Exit-Build` hook at the end of a build. All registered actions are run even if a previous one fails. |
+| Name             | Default Value                                      | ENV Override | Description                                                                                                                  |
+| ---------------- | -------------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `OnEnterActions` | `[System.Collections.Generic.List[scriptblock]]::new()` |              | [Extensibility Point] A collection of scriptblocks run as part of InvokeBuild's `Enter-Build` hook at the start of a build. |
+| `OnExitActions`  | `[System.Collections.Generic.List[scriptblock]]::new()` |              | [Extensibility Point] A collection of scriptblocks run as part of InvokeBuild's `Exit-Build` hook at the end of a build. All registered actions are run even if a previous one fails. |
 
 ### Functions
 

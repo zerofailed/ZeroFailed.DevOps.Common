@@ -5,6 +5,7 @@
 function Register-OnEnterAction
 {
     [CmdletBinding()]
+    [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
         [scriptblock] $Action

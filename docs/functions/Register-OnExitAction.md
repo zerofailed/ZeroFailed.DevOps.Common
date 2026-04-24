@@ -33,7 +33,7 @@ A helper function for consumers to register a PowerShell script block run as par
 
 ### Example 1 - Simple script block
 
-Register-OnExitAction -Action { Write-Build White 'Doing some clena-up' }
+Register-OnExitAction -Action { Write-Build White 'Doing some clean-up' }
 
 ### Example 2 - Running a nested build
 

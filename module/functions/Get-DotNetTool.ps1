@@ -4,6 +4,45 @@
 
 function Get-DotNetTool
 {
+    <#
+        .SYNOPSIS
+            Simple wrapper to check whether a given .NET tool is already installed.
+
+        .DESCRIPTION
+            Simple wrapper to check whether a given .NET tool is already installed.
+
+        .PARAMETER Name
+            The name of the .NET tool to check
+
+        .PARAMETER Version
+            The version of the .NET tool to check for. When unspecified any version found will cause this function to return true.
+
+        .PARAMETER Global
+            When specified, the tool's installation status is checked in the global scope (i.e. for the current user).
+
+        .PARAMETER Local
+            When specified, the tool's installation status is checked in the local scope (i.e. for the current project's .NET tool manifest).
+
+        .PARAMETER ToolPath
+            When specified, the tool's installation status is checked in the specified directory.
+
+        .OUTPUTS
+            System.Collections.Hashtable
+
+        .EXAMPLE
+            ```powershell
+            PS> Get-DotNetTool -Global -Name gitversion.tool
+
+            name            version commands
+            ----            ------- --------
+            gitversion.tool 5.8.0   dotnet-gitversion
+            ```
+
+        .EXAMPLE
+            ```powershell
+            PS:> Get-DotNetTool -ToolPath ./tools -Name gitversion.tool -Version 5.6.6
+            ```
+    #>
     [CmdletBinding(DefaultParameterSetName="global")]
     [OutputType([Hashtable])]
     param (

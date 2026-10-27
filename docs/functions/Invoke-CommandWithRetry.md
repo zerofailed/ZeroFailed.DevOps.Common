@@ -2,9 +2,9 @@
 document type: cmdlet
 external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
-Locale: en-GB
+Locale: en-US
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 11/13/2025
+ms.date: 10/27/2026
 PlatyPS schema version: 2024-05-01
 title: Invoke-CommandWithRetry
 ---
@@ -63,7 +63,8 @@ HelpMessage: ''
 
 ### -RetryCount
 
-Sets the maximum retry attempts. Defaults to 5.
+Sets the maximum retry attempts.
+Defaults to 5.
 
 ```yaml
 Type: System.Int32
@@ -84,7 +85,8 @@ HelpMessage: ''
 
 ### -RetryDelay
 
-Sets the delay (in seconds) between retry attempts. Defaults to 5 seconds.
+Sets the delay (in seconds) between retry attempts.
+Defaults to 5 seconds.
 
 ```yaml
 Type: System.Int32

@@ -2,9 +2,9 @@
 document type: cmdlet
 external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
-Locale: en-GB
+Locale: en-US
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 11/13/2025
+ms.date: 10/27/2026
 PlatyPS schema version: 2024-05-01
 title: New-TemporaryDirectory
 ---
@@ -28,7 +28,8 @@ New-TemporaryDirectory [<CommonParameters>]
 ## DESCRIPTION
 
 This function creates a new directory in the system's temporary folder with a randomly generated GUID as its name.
-This ensures that the directory name is unique and avoids potential naming conflicts. The function returns the DirectoryInfo object for the newly created directory.
+This ensures that the directory name is unique and avoids potential naming conflicts.
+The function returns the DirectoryInfo object for the newly created directory.
 
 ## EXAMPLES
 

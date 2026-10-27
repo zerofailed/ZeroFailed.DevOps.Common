@@ -2,9 +2,9 @@
 document type: cmdlet
 external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
-Locale: en-GB
+Locale: en-US
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 11/13/2025
+ms.date: 10/27/2026
 PlatyPS schema version: 2024-05-01
 title: Set-BuildServerVariable
 ---
@@ -27,7 +27,8 @@ Set-BuildServerVariable [-Name] <string> [-Value] <Object> [<CommonParameters>]
 
 ## DESCRIPTION
 
-Identifies the current build server using well-known environment variables and outputs correctly formatted log messages that will set variables within the build server context. Currently supports Azure Pipelines and GitHub Actions.
+Identifies the current build server using well-known environment variables and outputs correctly formatted log messages that will set variables within the build server context.
+Currently supports Azure Pipelines and GitHub Actions.
 
 ## EXAMPLES
 

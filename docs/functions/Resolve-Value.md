@@ -2,9 +2,9 @@
 document type: cmdlet
 external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
-Locale: en-GB
+Locale: en-US
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 11/13/2025
+ms.date: 10/27/2026
 PlatyPS schema version: 2024-05-01
 title: Resolve-Value
 ---
@@ -28,6 +28,7 @@ Resolve-Value [-Value] <Object> [<CommonParameters>]
 ## DESCRIPTION
 
 This cmdlet accepts a value of any type and evaluates it:
+
 - If the value is a scriptblock, it invokes the scriptblock and returns its result
 - If the value is any other type, it returns the value unchanged
 
@@ -62,7 +63,8 @@ DeferredValue
 
 ### -Value
 
-The configuration value to be resolved. This can be any object type, including a scriptblock.
+The configuration value to be resolved.
+This can be any object type, including a scriptblock.
 
 ```yaml
 Type: System.Object

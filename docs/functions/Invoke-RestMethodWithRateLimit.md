@@ -2,9 +2,9 @@
 document type: cmdlet
 external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
-Locale: en-GB
+Locale: en-US
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 11/13/2025
+ms.date: 10/27/2026
 PlatyPS schema version: 2024-05-01
 title: Invoke-RestMethodWithRateLimit
 ---
@@ -123,7 +123,8 @@ HelpMessage: ''
 
 ### -RetryBackOffExponentialFactor
 
-The factor used when calculating how quickly the exponential backoff should increase. Defaults to 1.5.
+The factor used when calculating how quickly the exponential backoff should increase.
+Defaults to 1.5.
 
 ```yaml
 Type: System.Double

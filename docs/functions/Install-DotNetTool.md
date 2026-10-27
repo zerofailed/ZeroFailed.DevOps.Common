@@ -2,9 +2,9 @@
 document type: cmdlet
 external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
-Locale: en-GB
+Locale: en-US
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 11/13/2025
+ms.date: 10/27/2026
 PlatyPS schema version: 2024-05-01
 title: Install-DotNetTool
 ---
@@ -42,7 +42,8 @@ Install-DotNetTool [-Name] <string> [-Version <string>] [-AdditionalArgs <string
 
 ## DESCRIPTION
 
-Simple wrapper to install a .NET Global Tool if it is not already installed.  Any existing installed version will be uninstalled before installing the required version.
+Simple wrapper to install a .NET Global Tool if it is not already installed.
+ Any existing installed version will be uninstalled before installing the required version.
 
 ## EXAMPLES
 
@@ -83,7 +84,8 @@ HelpMessage: ''
 
 ### -Global
 
-When specified, the tool is installed in the global scope (i.e. for the current user).
+When specified, the tool is installed in the global scope (i.e.
+for the current user).
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
@@ -104,7 +106,8 @@ HelpMessage: ''
 
 ### -Local
 
-When specified, the tool is installed in the local scope (i.e. for the current project's .NET tool manifest).
+When specified, the tool is installed in the local scope (i.e.
+for the current project's .NET tool manifest).
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
@@ -167,7 +170,9 @@ HelpMessage: ''
 
 ### -Version
 
-The version of the global tool to install. When unspecified the latest version will attempted to used, however, this does not work for all scenarios (e.g. pre-release, when not using a fully-featured NuGet feed as a source).
+The version of the global tool to install.
+When unspecified the latest version will attempted to used, however, this does not work for all scenarios (e.g.
+pre-release, when not using a fully-featured NuGet feed as a source).
 
 ```yaml
 Type: System.String

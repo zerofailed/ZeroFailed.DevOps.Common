@@ -2,9 +2,9 @@
 document type: cmdlet
 external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
-Locale: en-GB
+Locale: en-US
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 04/24/2026
+ms.date: 10/27/2026
 PlatyPS schema version: 2024-05-01
 title: Register-OnExitAction
 ---
@@ -33,11 +33,15 @@ A helper function for consumers to register a PowerShell script block run as par
 
 ### Example 1 - Simple script block
 
+```powershell
 Register-OnExitAction -Action { Write-Build White 'Doing some clean-up' }
+```
 
 ### Example 2 - Running a nested build
 
+```powershell
 Register-OnExitAction -Action { Invoke-Build -File my.tasks.ps1 -Task MyCleanupTask }
+```
 
 ## PARAMETERS
 

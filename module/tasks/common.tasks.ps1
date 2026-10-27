@@ -17,9 +17,13 @@ task EnsureGitHubCli -If { !$SkipEnsureGitHubCli } -After InitCore {
     }
 }
 
-# Synopsis: Installs and imports the specified PowerShell modules. ***NOTE**: PowerShell repositories will be trusted by default.*
+# Synopsis: Installs and imports the specified PowerShell modules, retrying on failure. ***NOTE**: PowerShell repositories will be trusted by default.*
 task setupModules -If { $null -ne $RequiredPowerShellModules -and $RequiredPowerShellModules -ne @{} } -After InitCore {
-    Install-PSResource -RequiredResource $RequiredPowerShellModules -Scope CurrentUser -TrustRepository | Out-Null
+    # Retry to mitigate transient PowerShell Gallery failures. Modules that are already installed
+    # are skipped, so a retry only installs those that are still missing.
+    Invoke-CommandWithRetry -RetryCount $PowerShellModuleInstallRetryCount -RetryDelay $PowerShellModuleInstallRetryDelay -Command {
+        Install-PSResource -RequiredResource $RequiredPowerShellModules -Scope CurrentUser -TrustRepository -ErrorAction Stop | Out-Null
+    }
     $RequiredPowerShellModules.Keys | ForEach-Object { Import-Module $_ }
 }
 

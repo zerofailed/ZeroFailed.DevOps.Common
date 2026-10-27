@@ -28,8 +28,8 @@ function Test-AzCliConnection
         throw "The azure-cli is not installed."
     }
 
-    $currentTokenExpiry = $(az account get-access-token --query "expiresOn" -o tsv)
-    if ($null -eq $currentTokenExpiry -or ([DateTime]$currentTokenExpiry) -le [DateTime]::Now)
+    $currentTokenExpiry = $(az account get-access-token --query "expiresOn" -o tsv 2>$null)
+    if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($currentTokenExpiry) -or ([DateTime]$currentTokenExpiry) -le [DateTime]::Now)
     {
         return $false
     }

@@ -2,9 +2,9 @@
 document type: cmdlet
 external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
-Locale: en-GB
+Locale: en-US
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 11/13/2025
+ms.date: 10/27/2026
 PlatyPS schema version: 2024-05-01
 title: Get-DotNetTool
 ---
@@ -47,6 +47,7 @@ Simple wrapper to check whether a given .NET tool is already installed.
 
 ```powershell
 PS> Get-DotNetTool -Global -Name gitversion.tool
+
 name            version commands
 ----            ------- --------
 gitversion.tool 5.8.0   dotnet-gitversion
@@ -62,7 +63,8 @@ PS:> Get-DotNetTool -ToolPath ./tools -Name gitversion.tool -Version 5.6.6
 
 ### -Global
 
-When specified, the tool's installation status is checked in the global scope (i.e. for the current user).
+When specified, the tool's installation status is checked in the global scope (i.e.
+for the current user).
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
@@ -83,7 +85,8 @@ HelpMessage: ''
 
 ### -Local
 
-When specified, the tool's installation status is checked in the local scope (i.e. for the current project's .NET tool manifest).
+When specified, the tool's installation status is checked in the local scope (i.e.
+for the current project's .NET tool manifest).
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
@@ -146,7 +149,8 @@ HelpMessage: ''
 
 ### -Version
 
-The version of the .NET tool to check for. When unspecified any version found will cause this function to return true.
+The version of the .NET tool to check for.
+When unspecified any version found will cause this function to return true.
 
 ```yaml
 Type: System.String

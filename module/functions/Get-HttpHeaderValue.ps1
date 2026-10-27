@@ -3,6 +3,49 @@
 # </copyright>
 
 function Get-HttpHeaderValue {
+    <#
+        .SYNOPSIS
+            Extracts and validates HTTP header values from a headers collection with type conversion.
+
+        .DESCRIPTION
+            This function searches for a specific HTTP header in a headers collection and attempts to convert it to the specified type.
+            It provides robust error handling, case-insensitive header matching, and verbose logging for debugging.
+
+        .PARAMETER Headers
+            The collection of HTTP headers to search through. Each header should have a Key and Value property.
+
+        .PARAMETER HeaderName
+            The name of the header to search for (case-insensitive).
+
+        .PARAMETER ExpectedType
+            The .NET type to convert the header value to (e.g., [int], [datetime], [string], [double]).
+
+        .PARAMETER DefaultValue
+            The default value to return if the header is not found or cannot be parsed.
+            Must be compatible with ExpectedType.
+
+        .OUTPUTS
+            System.Object
+
+        .EXAMPLE
+            ```powershell
+            $retryAfter = Get-HttpHeaderValue -Headers $response.Headers -HeaderName "Retry-After" -ExpectedType ([int]) -DefaultValue 0
+            ```
+
+        .EXAMPLE
+            ```powershell
+            $headers = $response.Headers
+            $resetTime = Get-HttpHeaderValue -Headers $headers -HeaderName "X-RateLimit-Reset" -ExpectedType ([long]) -DefaultValue 0
+            if ($resetTime -gt 0) {
+                $resetDateTime = [datetime]::FromFileTimeUtc($resetTime)
+            }
+            ```
+
+        .EXAMPLE
+            ```powershell
+            $customValue = Get-HttpHeaderValue -Headers $response.Headers -HeaderName "X-Custom-Header" -ExpectedType ([string]) -DefaultValue "default"
+            ```
+    #>
     [CmdletBinding()]
     [OutputType([Object])]
     param (

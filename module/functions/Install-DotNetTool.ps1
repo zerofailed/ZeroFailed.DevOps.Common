@@ -4,6 +4,44 @@
 
 function Install-DotNetTool
 {
+    <#
+        .SYNOPSIS
+            Simple wrapper to install a .NET global tool if it is not already installed.
+
+        .DESCRIPTION
+            Simple wrapper to install a .NET Global Tool if it is not already installed.  Any existing installed version will be uninstalled before installing the required version.
+
+        .PARAMETER Name
+            The name of the .NET global tool to install.
+
+        .PARAMETER Version
+            The version of the global tool to install. When unspecified the latest version will attempted to used, however, this does not work for all scenarios (e.g. pre-release, when not using a fully-featured NuGet feed as a source).
+
+        .PARAMETER AdditionalArgs
+            An array of arbitrary command-line arguments supported by 'dotnet tool install' command.
+
+        .PARAMETER Global
+            When specified, the tool is installed in the global scope (i.e. for the current user).
+
+        .PARAMETER Local
+            When specified, the tool is installed in the local scope (i.e. for the current project's .NET tool manifest).
+
+        .PARAMETER ToolPath
+            When specified, the tool is installed in the specified directory.
+
+        .OUTPUTS
+            System.String
+
+        .EXAMPLE
+            ```powershell
+            Install-DotNetTool -Global -Name dotnet-gitversion
+            ```
+
+        .EXAMPLE
+            ```powershell
+            Install-DotNetTool -ToolPath ./tools -Name dotnet-gitversion -Version 5.6.6
+            ```
+    #>
     [CmdletBinding(DefaultParameterSetName="global")]
     [OutputType([String])]
     param (

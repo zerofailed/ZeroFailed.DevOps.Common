@@ -3,6 +3,52 @@
 # </copyright>
 
 function Invoke-RestMethodWithRateLimit {
+    <#
+        .SYNOPSIS
+            Invokes REST API calls with automatic rate limit handling and exponential backoff retry logic.
+
+        .DESCRIPTION
+            This wrapper function handles Fabric API and Microsoft Graph API rate limiting by:
+
+            - Detecting HTTP 429 responses
+            - Extracting Retry-After headers
+            - Implementing exponential backoff with jitter
+            - Providing configurable retry attempts
+            - Maintaining detailed logging
+
+        .PARAMETER Splat
+            Hashtable containing all parameters for Invoke-RestMethod (Uri, Method, Headers, Body, etc.)
+
+        .PARAMETER MaxRetries
+            Maximum number of retry attempts (default: 3).
+
+        .PARAMETER BaseDelaySeconds
+            Base delay in seconds for exponential backoff (default: 1).
+
+        .PARAMETER MaxDelaySeconds
+            Maximum delay in seconds between retries (default: 60).
+
+        .PARAMETER RetryBackOffExponentialFactor
+            The factor used when calculating how quickly the exponential backoff should increase. Defaults to 1.5.
+
+        .OUTPUTS
+            System.Object
+
+        .EXAMPLE
+            ```powershell
+            $splat = @{
+                Uri = "https://api.fabric.microsoft.com/v1/connections"
+                Method = "GET"
+                Headers = @{ Authorization = "Bearer $token" }
+            }
+            $result = Invoke-RestMethodWithRateLimit -Splat $splat
+            ```
+
+        .EXAMPLE
+            ```powershell
+            $result = Invoke-RestMethodWithRateLimit -Splat $splat -MaxRetries 5 -BaseDelaySeconds 2 -MaxDelaySeconds 120
+            ```
+    #>
     [CmdletBinding()]
     [OutputType([Object])]
     param (

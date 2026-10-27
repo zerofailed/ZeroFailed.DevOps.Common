@@ -2,9 +2,9 @@
 document type: cmdlet
 external help file: ZeroFailed.DevOps.Common-Help.xml
 HelpUri: ''
-Locale: en-GB
+Locale: en-US
 Module Name: ZeroFailed.DevOps.Common
-ms.date: 11/13/2025
+ms.date: 10/27/2026
 PlatyPS schema version: 2024-05-01
 title: Edit-TokenizedFiles
 ---
@@ -28,7 +28,8 @@ Edit-TokenizedFiles [[-FilesToProcess] <string[]>] [[-TokenRegexFormatString] <s
 
 ## DESCRIPTION
 
-Configuration that changes between different environments etc. is often represented by a tokenised value, which is updated before use.
+Configuration that changes between different environments etc.
+is often represented by a tokenised value, which is updated before use.
 
 For example, consider a JSON file containing the following:
 
@@ -121,8 +122,10 @@ HelpMessage: ''
 
 ### -TokenRegexFormatString
 
-The regular expression used to locate tokens to be replaced. The expression must contain a single
-format string placeholder (i.e. `{0}`) to represent the name of the token.
+The regular expression used to locate tokens to be replaced.
+The expression must contain a single
+format string placeholder (i.e.
+`{0}`) to represent the name of the token.
 
 Defaults to an expression suitable for use with the above example.
 

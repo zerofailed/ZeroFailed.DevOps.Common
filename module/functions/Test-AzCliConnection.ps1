@@ -4,6 +4,21 @@
 
 function Test-AzCliConnection
 {
+    <#
+        .SYNOPSIS
+            Checks whether the current process is logged-in to the azure-cli with a valid access token.
+
+        .DESCRIPTION
+            Returns true when a valid azure-cli access token is found, otherwise returns false.
+
+        .OUTPUTS
+            System.Boolean
+
+        .EXAMPLE
+            ```powershell
+            if (Test-AzCliConnection) { & az storage list } else { Write-Error "Please run 'az login'" }
+            ```
+    #>
     [CmdletBinding()]
     [OutputType([Boolean])]
     param (

@@ -94,7 +94,9 @@ function Edit-TokenizedFiles
             if ($configCache[$_].contents -match $regexPattern) {
                 Write-Host "Patching '$token' in '$_'"
                 $configCache[$_].updated = $true
-                $configCache[$_].contents = $configCache[$_].contents -replace $regexPattern,$TokenValuePairs[$token]
+                $value = $TokenValuePairs[$token]
+                $escapedValue = $value -replace '\$', '$$$$'
+                $configCache[$_].contents = $configCache[$_].contents -replace $regexPattern, $escapedValue
             }
             else {
                 Write-Verbose "Token not found"

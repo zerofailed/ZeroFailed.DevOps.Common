@@ -144,4 +144,38 @@ Describe "Edit-TokenizedFiles Tests" {
             (Import-PowerShellDataFile -Path $testPsd1File).settingC | Should -Be "foo__bar"
         }
     }
+
+    Context 'Escape character edge-case: .NET Regex substitution sequences' {
+
+        BeforeAll {
+            $testJsonConfig = @"
+{
+    "settingA": "#{SETTING_A}#",
+    "settingB": "#{SETTING_B}#",
+    "settingC": "#{SETTING_A}#__#{SETTING_B}#__#{SETTING_C}#"
+}    
+"@
+            $testJsonFile = "TestDrive:/test-config.json"
+            Set-Content -Path $testJsonFile -Value $testJsonConfig
+    
+            $tokenValues = @{
+                SETTING_A = "foo"
+                SETTING_B = 'pa$&ss$1word'
+                SETTING_C = "too_far"
+            }
+        }
+
+        BeforeEach {
+            Edit-TokenizedFiles -FilesToProcess @($testJsonFile) `
+                                -TokenValuePairs $tokenValues
+        }
+
+        It 'should render replacement strings containing .NET Regex substitution sequences correctly' {
+            (Get-Content -Raw -Path $testJsonFile | ConvertFrom-Json).settingB | Should -Be 'pa$&ss$1word'
+        }
+
+         It "should handle multiple tokens referenced on the same line correctly" {
+            (Get-Content -Raw -Path $testJsonFile | ConvertFrom-Json).settingC | Should -Be 'foo__pa$&ss$1word__too_far'
+        }
+    }
 }

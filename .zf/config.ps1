@@ -52,6 +52,13 @@ $PowerShellRepositories = @(
         }
     }
 )
+if ($env:ZF_BUILD_PS_REPOSITORY_NAME) {
+    $targetRepository = $PowerShellRepositories | Where-Object Name -EQ $env:ZF_BUILD_PS_REPOSITORY_NAME
+    if (!$targetRepository) {
+        throw "PowerShell repository '$env:ZF_BUILD_PS_REPOSITORY_NAME' is not configured."
+    }
+    $PowerShellRepositories = @($targetRepository)
+}
 
 $PSMarkdownDocsFlattenOutputPath = $true
 $PSMarkdownDocsOutputPath = './docs/functions'

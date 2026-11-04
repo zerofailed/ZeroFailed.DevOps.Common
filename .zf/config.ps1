@@ -5,7 +5,7 @@ $zerofailedExtensions = @(
     # - Avoids any conflicts when generating PlatyPS markdown documentation for the repository version
     @{
         Name = "ZeroFailed.DevOps.Common"
-        Path = "$here/module"
+        Path = "module"
     }
 
     @{

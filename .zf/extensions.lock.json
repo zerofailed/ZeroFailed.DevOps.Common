@@ -43,7 +43,7 @@
     "ZeroFailed.DevOps.Common": {
       "source": {
         "type": "path",
-        "path": "module"
+        "path": "../module"
       },
       "requested": null,
       "resolved": null,

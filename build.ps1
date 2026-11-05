@@ -6,7 +6,10 @@
     The path to import the ZeroFailed module from, instead of installing it. This is useful when testing a local
     copy of ZeroFailed.
 .PARAMETER ZfModuleVersion
-    The version of the ZeroFailed module to install and import.
+    The version of the ZeroFailed module to use, as an exact version (e.g. '1.0.7' or '1.1.0-preview0001')
+    or a NuGet version range. The default range '[2.0.0, 3.0.0)' takes the newest 2.x release, so
+    the build picks up new minor and patch releases but never a new major release.
+    Pre-release versions are only used when the value itself contains a pre-release label.
 .PARAMETER ZfModuleRepository
     The PowerShell repository to install the ZeroFailed module from: a registered repository name, or a URL. For a
     URL, a repository that is already registered with that URL (and any credentials it has) is used. Otherwise, the
@@ -19,7 +22,7 @@
     use the lock file. Defaults to 'Frozen' in GitHub Actions, and to 'Write' elsewhere. The
     ZF_EXTENSIONS_LOCK_MODE environment variable takes precedence over this parameter.
 .PARAMETER InvokeBuildModuleVersion
-    The version of the InvokeBuild module to be used.
+    The version of the InvokeBuild module to be used, as an exact version or a NuGet version range.
 #>
 [CmdletBinding()]
 param (
@@ -43,7 +46,7 @@ param (
     [string] $ZfModulePath,
 
     [Parameter()]
-    [string] $ZfModuleVersion = "2.0.0",
+    [string] $ZfModuleVersion = "[2.0.0, 3.0.0)",
 
     [Parameter()]
     [string] $ZfModuleRepository = "https://nuget.pkg.github.com/zerofailed/index.json",
@@ -53,7 +56,7 @@ param (
     [string] $ZfExtensionsLockMode = ($env:GITHUB_ACTIONS -eq "true" ? "Frozen" : "Write"),
 
     [Parameter()]
-    [version] $InvokeBuildModuleVersion = "5.14.23"
+    [string] $InvokeBuildModuleVersion = "5.14.23"
 )
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $PSCommandPath
@@ -100,7 +103,19 @@ if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
 #region Initialise build framework
 $splat = @{ Force = $true; Verbose = $false}
 if (!($ZfModulePath)) {
-    if (!(Get-InstalledPSResource ZeroFailed -Version $ZfModuleVersion -ErrorAction Ignore)) {
+    # $ZfModuleVersion can be an exact version or a NuGet version range (e.g. '[2.0.0, 3.0.0)').
+    # Pre-release versions are only considered when the value includes a pre-release label.
+    $isVersionRange = $ZfModuleVersion -match '[\[\(,]'
+    $allowPrerelease = $ZfModuleVersion -match '-'
+    $getInstalledZfModule = {
+        Get-InstalledPSResource ZeroFailed -Version $ZfModuleVersion -ErrorAction Ignore |
+            Where-Object { $allowPrerelease -or !$_.Prerelease } |
+            Sort-Object -Property Version -Descending |
+            Select-Object -First 1
+    }
+    # An exact version that is already installed is used as it is. A range is always checked against the
+    # repository, so that the build takes the newest release in the range.
+    if ($isVersionRange -or !(& $getInstalledZfModule)) {
         # Support a repository URL, re-using any existing registration for it (and its credentials)
         if ($ZfModuleRepository -match '://') {
             $uri = $ZfModuleRepository
@@ -111,6 +126,7 @@ if (!($ZfModulePath)) {
             Name = 'ZeroFailed'
             Version = $ZfModuleVersion
             Repository = $ZfModuleRepository
+            Prerelease = $allowPrerelease
             Scope = 'CurrentUser'
             TrustRepository = $true
         }
@@ -120,21 +136,41 @@ if (!($ZfModulePath)) {
         if ($gitHubToken -and (Get-PSResourceRepository $ZfModuleRepository).Uri.Host -eq 'nuget.pkg.github.com') {
             $installSplat.Credential = [pscredential]::new('token', (ConvertTo-SecureString $gitHubToken -AsPlainText -Force))
         }
+        # A range that the installed version already satisfies is checked on every run, so do not warn that it is installed
+        $installZfModule = {
+            Install-PSResource @installSplat -WarningAction SilentlyContinue -WarningVariable installWarnings
+            $installWarnings | Where-Object Message -notlike '*is already installed*' | ForEach-Object { Write-Warning $_.Message }
+        }
         try {
-            Install-PSResource @installSplat
+            try {
+                & $installZfModule
+            }
+            catch {
+                if ($ZfModuleRepository -eq 'PSGallery') { throw }
+                Write-Warning "Could not install ZeroFailed $ZfModuleVersion from '$ZfModuleRepository', so trying PSGallery: $($_.Exception.Message)"
+                $installSplat.Remove('Credential')
+                $installSplat.Repository = 'PSGallery'
+                & $installZfModule
+            }
         }
         catch {
-            if ($ZfModuleRepository -eq 'PSGallery') { throw }
-            Write-Warning "Could not install ZeroFailed $ZfModuleVersion from '$ZfModuleRepository', so trying PSGallery: $($_.Exception.Message)"
-            $installSplat.Remove('Credential')
-            $installSplat.Repository = 'PSGallery'
-            Install-PSResource @installSplat
+            # When a range cannot be checked (e.g. offline), use the newest installed version that satisfies it
+            if (!(& $getInstalledZfModule)) { throw }
+            Write-Warning "Could not check for a newer ZeroFailed module in the range $ZfModuleVersion, so using the installed version: $($_.Exception.Message)"
         }
     }
-    # Import the module's manifest by its path. A package from GitHub Packages is installed in a lower-case
-    # 'zerofailed' folder, which 'Import-Module ZeroFailed' does not find on a case-sensitive file system (Linux).
-    $installed = Get-InstalledPSResource ZeroFailed -Version $ZfModuleVersion | Select-Object -First 1
-    $ZfModulePath = Join-Path $installed.InstalledLocation $installed.Name ($ZfModuleVersion -split '-')[0] 'ZeroFailed.psd1'
+    # Import the newest installed version that satisfies $ZfModuleVersion, by its manifest's path. A package from
+    # GitHub Packages is installed in a lower-case 'zerofailed' folder, which 'Import-Module ZeroFailed' does not find
+    # on a case-sensitive file system (Linux).
+    $installed = & $getInstalledZfModule
+    if (!$installed) {
+        throw "No installed version of the ZeroFailed module satisfies the version '$ZfModuleVersion'."
+    }
+    # The installed location is either the modules folder or the module's version folder
+    $ZfModulePath = Join-Path $installed.InstalledLocation 'ZeroFailed.psd1'
+    if (!(Test-Path $ZfModulePath)) {
+        $ZfModulePath = Join-Path $installed.InstalledLocation $installed.Name $installed.Version.ToString() 'ZeroFailed.psd1'
+    }
     if (!(Test-Path $ZfModulePath)) {
         throw "The ZeroFailed module manifest is not in the expected location: $ZfModulePath"
     }

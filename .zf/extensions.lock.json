@@ -35,8 +35,8 @@
         "repository": "https://github.com/zerofailed/ZeroFailed.Build.PowerShell.git"
       },
       "requested": "main",
-      "resolved": "d0faca7cebf4a9853659e809ac6940cb560a0a9f",
-      "contentHash": "sha256:540e5174f7983be7e84f15e5064dc14748acde383cfe0c9435837e87a9abe972",
+      "resolved": "e81bc6dd6caf7e1e7ef7a19bdab836faaf90c6f3",
+      "contentHash": "sha256:20718d4131ce155fc829af325aa01542eff88ca124bc970e29cebc19ab466a63",
       "direct": true,
       "requiredBy": []
     },

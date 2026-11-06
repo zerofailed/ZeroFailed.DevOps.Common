@@ -186,8 +186,6 @@ $ver = ("{0} {1}" -f (Get-Module ZeroFailed).Version, (Get-Module ZeroFailed).Pr
 Write-Host "Using ZeroFailed module version: $ver from $ZfModulePath"
 #endregion
 
-$PSModuleAutoloadingPreference = 'none'
-
 # ZeroFailed reads the extensions lock mode from this variable, unless ZF_EXTENSIONS_LOCK_MODE is set
 $zerofailedExtensionsLockMode = $ZfExtensionsLockMode
 
